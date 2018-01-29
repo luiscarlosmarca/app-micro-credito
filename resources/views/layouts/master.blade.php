@@ -110,7 +110,7 @@
             <li><a href="carteras"><i class="fa fa-circle-o"></i> Cartera</a></li>
             <li><a href="cobradores"><i class="fa fa-circle-o"></i> Cobradores</a></li>
             <li><a href="clientes"><i class="fa fa-circle-o"></i> Clientes</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Gastos</a></li>
+            <li><a href="gastos"><i class="fa fa-circle-o"></i> Gastos</a></li>
        
         </li>
         <li>

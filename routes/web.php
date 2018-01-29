@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function(){
+
+	$personas = credito\Persona::all();
+	return view('home', compact('personas')); 
+});
+
 
 Auth::routes();
 
@@ -24,7 +30,16 @@ Route::get('/carteras', 'HomeController@carteras')->name('carteras');
 
 Route::get('/cobradores', 'HomeController@cobradores')->name('cobradores');
 
+Route::get('/clientes', 'HomeController@clientes')->name('clientes');
+
+Route::get('/gastos', 'HomeController@gastos')->name('gastos');
+
 Route::resource('cartera', 'CarteraController', ['except'=>'show','create','edit']);
 
 Route::resource('persona','PersonaController',['except'=>'create','edit']);
+
+Route::resource('gasto','GastoController',['except'=>'create','edit']);
+
+
+
 

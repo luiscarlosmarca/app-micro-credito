@@ -3,6 +3,7 @@
 namespace credito\Http\Controllers;
 
 use credito\Persona;
+use credito\Cartera;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
@@ -29,16 +30,18 @@ class PersonaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+      
          $this->validate($request,[
             'nombre'=>['required','string'],
-            'cedula'=>['required','integer'],
+            'cedula'=>['required','integer','unique:personas,email'],
             'celular'=>'required',
             'email'=>'unique:personas,email'
            
         ]);
 
-        Persona::create($request->all()); 
+        $user=Persona::create($request->all()); 
+
 
         return;
 
@@ -54,7 +57,7 @@ class PersonaController extends Controller
     {   
 
         $persona = Persona::where('role',$role)->orderBy('id','DESC')->get();
-      
+
         return $persona;
     }
 
@@ -68,16 +71,22 @@ class PersonaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    { 
+
         $this->validate($request,[
 
-            'nombre'=>'required,string',
-            'cedula'=>'required,integer',
+            'nombre'=>['required','string'],
+            'cedula'=>['required','integer','unique:personas,email'],
             'celular'=>'required',
-           
-            
+                       
         ]);
-        Persona::find($id)->update($request->all());
+
+        $persona=Persona::find($id)->update($request->all());
+        if($request->get('carteras')){
+             $persona=Persona::find($id);
+            $persona->mycarteras()->attach($request->get('carteras'));
+        }
+      
         return;
 
   

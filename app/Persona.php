@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
 {
-	protected $fillable =['nombre','direccion','role','cedula','celular','email','cobrador_id'];
+	protected $fillable =['nombre','direccion','role','cedula','celular','email','cobrador_id','estado'];
+   
     public function prestamos(){
 
     	return $this->hasMany('credito\Prestamo');
@@ -20,6 +21,17 @@ class Persona extends Model
 
     	 return $this->hasMany('App\Persona');
 
+    }
+//aqui esta la relacion pivot como la ve?
+    //ok
+    public function mycarteras(){
+
+        return $this->belongsToMany(Cartera::class)->withTimestamps();
+    }
+
+    public function getCarterasAttribute(){
+
+        return $this->mycarteras()->lists('cartera_id')->toArray();
     }
 
 

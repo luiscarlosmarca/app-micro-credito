@@ -15,7 +15,7 @@
             html, body {
                 background-image: url(/images/1.jpeg);
                 color: #636b6f;
-                background-size:  1100px;
+                background-size:  1500px;
                 background-repeat: no-repeat, repeat;
                 background-color: #cccccc;
                 font-family: 'Raleway', sans-serif;
@@ -78,8 +78,8 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">Entrar</a>
+                        <a href="{{ route('register') }}">Registrarse</a>
                     @endauth
                 </div>
             @endif
@@ -90,6 +90,8 @@
                 </div>
               <small class="m-b-md""> Software Web</small>
             </div>
+            
+           
         </div>
     </body>
 </html>

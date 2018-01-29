@@ -17,11 +17,11 @@ class CreateCarteraPersonaTable extends Migration
 
             $table->integer('persona_id')->unsigned();
 
-            $table->foreign('persona_id')->references('id')->on('personas');
+            $table->foreign('persona_id')->references('id')->on('personas') ->onDelete('cascade');
 
             $table->integer('cartera_id')->unsigned();
 
-            $table->foreign('cartera_id')->references('id')->on('carteras');
+            $table->foreign('cartera_id')->references('id')->on('carteras')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -3,7 +3,8 @@
 namespace credito\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use credito\Cartera;
+use credito\Persona;
 class HomeController extends Controller
 {
     /**
@@ -31,11 +32,24 @@ class HomeController extends Controller
         return view('carteras');
     }
 
-     public function cobradores()
-    {
+    public function cobradores()
+    {   
+        $carteras=Cartera::orderBy('nombre','ASC')->pluck('nombre','id');
         $role="cobrador";
-        return view('cobradores',compact('role'));
+        return view('cobradores',compact('role','carteras'));
+       
+    }
 
-        
+    public function clientes()
+    {   
+        $carteras=Cartera::orderBy('nombre','ASC')->pluck('nombre','id');
+        $cobradores=Persona::where('role','cobrador')->pluck('nombre','id');
+        $role="cliente";
+        return view('clientes',compact('role','carteras','cobradores'));
+       
+    }
+
+    public function gastos(){
+        return view('gastos');
     }
 }

@@ -14,18 +14,12 @@ class GastoController extends Controller
      */
     public function index()
     {
-        //
+        $gasto=Gasto::orderBy('id','DESC')->get();
+     
+        return $gasto;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -35,30 +29,23 @@ class GastoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          $this->validate($request,[
+            'detalle'=>['required','string'],
+            'valor'=>['required','integer'],
+           
+           
+        ]);
+
+        $gasto=Gasto::create($request->all()); 
+
+
+        return;
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \credito\Gasto  $gasto
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gasto $gasto)
-    {
-        //
-    }
+ 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \credito\Gasto  $gasto
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Gasto $gasto)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +54,21 @@ class GastoController extends Controller
      * @param  \credito\Gasto  $gasto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gasto $gasto)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+
+            'valor'   =>['required','integer'],
+            'detalle' =>['required','string']
+                                 
+        ]);
+
+        $gasto=Gasto::find($id);
+        $gasto->update($request->all());
+     
+      
+        return;
+
     }
 
     /**
@@ -78,8 +77,9 @@ class GastoController extends Controller
      * @param  \credito\Gasto  $gasto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gasto $gasto)
+    public function destroy($id)
     {
-        //
+        $gastos=Gasto::findOrFail($id);
+        $gastos->delete(); 
     }
 }

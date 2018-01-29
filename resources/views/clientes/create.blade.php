@@ -1,6 +1,6 @@
 
  
-<form method="POST" v-on:submit.prevent="createCobrador">
+<form method="POST" v-on:submit.prevent="createCliente">
   <div class="modal fade" id="create" role="dialog" > 
     
     <div class="modal-dialog">
@@ -9,7 +9,7 @@
             <button type="button" class="close" data-dismiss="modal">
                <span> &times;</span>
             </button>
-            <h4> Nuevo cobrador </h4>
+            <h4> Nuevo Cliente </h4>
        </div>
        <div class="modal-body">
           
@@ -27,18 +27,15 @@
           
            <label for="persona">Direccion </label>
           <input type="text" name="direccion" class="form-control" v-model="direccion">
-         
-          <input type="hidden" name="role" value="{!!$role !!}"  v-model="role">
+            
+          <label for="persona">Estado</label>
+          <input type="text" name="estado" value="test" class="form-control" v-model="estado">
+
+          <label for="persona">Cobrador</label>
           
-          @if($role!="cobrador")
-            <label for="persona">Estado</label>
-            <input type="text" name="estado" value="test" class="form-control" v-model="Estado">
-
-            <label for="persona">Cobrador</label>
-            <input type="text" name="estado" class="form-control" v-model="Cobrador_id">
-
-          @endif 
-         
+          
+          {{ Form::select('cobrador_id', $cobradores, 0,['class'=>'form-control cobrador_id'],['v-model'=>'cobrador_id']) }}
+        
 
           <span v-for="error in errors" id="error" lass="text-danger">
             @{{error}}

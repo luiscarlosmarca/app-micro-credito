@@ -1072,12 +1072,13 @@ var cobrador = new Vue({
 	},
 	data: {
 		cobradores: [],
-
+		id: '',
 		nombre: '',
 		cedula: '',
 		email: '',
 		celular: '',
 		direccion: '',
+		role: '',
 		errors: [],
 		fillCobrador: {
 			'id': '',
@@ -1085,7 +1086,8 @@ var cobrador = new Vue({
 			'cedula': '',
 			'celular': '',
 			'direccion': '',
-			'email': ''
+			'email': '',
+			carteras: []
 
 		}
 	},
@@ -1094,7 +1096,7 @@ var cobrador = new Vue({
 		getCobrador: function getCobrador() {
 			var _this5 = this;
 
-			var urlCobrador = '/persona/cobrador';
+			var urlCobrador = 'persona/cobrador';
 			axios.get(urlCobrador).then(function (response) {
 				_this5.cobradores = response.data;
 			});
@@ -1107,10 +1109,11 @@ var cobrador = new Vue({
 			this.fillCobrador.celular = cobrador.celular;
 			this.fillCobrador.direccion = cobrador.direccion;
 			this.fillCobrador.email = cobrador.email;
-
+			this.fillCobrador.carteras = [$(".carteras").val()];
 			$('#edit').modal('show');
 			$('#error').empty();
 		},
+
 		UpdateCobrador: function UpdateCobrador(id) {
 			var _this6 = this;
 
@@ -1126,10 +1129,10 @@ var cobrador = new Vue({
 				_this6.errors = error.response.data;
 			});
 		},
-		deleteCobrador: function deleteCobrador(cobrador) {
+		deleteCobrador: function deleteCobrador(id) {
 			var _this7 = this;
 
-			var urlDelete = 'persona/' + cobrador.id;
+			var urlDelete = 'persona/' + id;
 			axios.delete(urlDelete).then(function (response) {
 				_this7.getCobrador();
 				toastr.success('Cobrador eliminado correctamente');
@@ -1161,7 +1164,222 @@ var cobrador = new Vue({
 				$('#error').empty();
 				toastr.success('Cobrador Guardado Correctamente');
 			}).catch(function (error) {
-				_this8.errors = error.response.data;
+				_this8.errors = error.response;
+			});
+		}
+
+	}
+
+});
+
+var cliente = new Vue({
+	el: '#cliente',
+	created: function created() {
+		this.getCliente();
+	},
+	data: {
+		clientes: [],
+		nombre: '',
+		cedula: '',
+		email: '',
+		celular: '',
+		role: '',
+		direccion: '',
+		cobrador_id: '',
+		estado: '',
+		errors: [],
+		fillcliente: {
+			'id': '',
+			'nombre': '',
+			'cedula': '',
+			'celular': '',
+			'direccion': '',
+			'email': '',
+			'cobrador_id': '',
+			'estado': ''
+
+		}
+	},
+	methods: {
+		getCliente: function getCliente() {
+			var _this9 = this;
+
+			var urlcliente = '/persona/cliente';
+			axios.get(urlcliente).then(function (response) {
+				_this9.clientes = response.data;
+			});
+		},
+		editCliente: function editCliente(cliente) {
+
+			this.fillcliente.id = cliente.id;
+			this.fillcliente.nombre = cliente.nombre;
+			this.fillcliente.cedula = cliente.cedula;
+			this.fillcliente.celular = cliente.celular;
+			this.fillcliente.direccion = cliente.direccion;
+			this.fillcliente.email = cliente.email;
+			this.fillcliente.estado = cliente.estado;
+
+			$(".cobrador_id").val(cliente.cobrador_id);
+			this.fillcliente.cobrador_id = cliente.cobrador_id;
+			$('#edit').modal('show');
+			$('#error').empty();
+		},
+		updateCliente: function updateCliente(id) {
+			var _this10 = this;
+
+			this.fillcliente.cobrador_id = $(".cobrador_id").val();
+			$('#edit').modal('show');
+			var url = 'persona/' + id;
+			axios.put(url, this.fillcliente).then(function (response) {
+
+				_this10.getCliente();
+				fillcliente = {
+					'id': '',
+					'nombre': '',
+					'cedula': '',
+					'celular': '',
+					'direccion': '',
+					'email': '',
+					'cobrador_id': '',
+					'estado': ''
+
+				};
+				_this10.errors = [];
+				$('#edit').modal('hide');
+				toastr.success('cliente Actualizada Correctamente');
+			}).catch(function (error) {
+				_this10.errors = error.response.data;
+			});
+		},
+		deleteCliente: function deleteCliente(cliente) {
+			var _this11 = this;
+
+			var urlDelete = 'persona/' + cliente.id;
+			axios.delete(urlDelete).then(function (response) {
+				_this11.getCliente();
+				toastr.success('Cliente eliminado correctamente');
+			});
+		},
+		createCliente: function createCliente() {
+			var _this12 = this;
+
+			var url = 'persona';
+			axios.post(url, {
+				nombre: this.nombre,
+				cedula: this.cedula,
+				email: this.email,
+				celular: this.celular,
+				direccion: this.direccion,
+				estado: this.estado,
+				cobrador_id: $(".cobrador_id").val(),
+				role: 'cliente'
+
+			}).then(function (response) {
+
+				_this12.getCliente();
+				_this12.nombre = '';
+				_this12.cedula = '';
+				_this12.email = '';
+				_this12.celular = '';
+				_this12.direccion = '';
+				_this12.cobrador_id = '';
+				_this12.estado = '';
+				_this12.errors = [];
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('cliente Guardado Correctamente');
+			}).catch(function (error) {
+				_this12.errors = error.response.data;
+			});
+		}
+
+	}
+
+});
+
+var gasto = new Vue({
+	el: '#gasto',
+	created: function created() {
+		this.getGasto();
+	},
+	data: {
+		gastos: [],
+		detalle: '',
+		valor: '',
+		errors: [],
+		fillgasto: {
+			'detalle': '',
+			'valor': '',
+			'id': ''
+		}
+	},
+	methods: {
+		getGasto: function getGasto() {
+			var _this13 = this;
+
+			var url = 'gasto';
+			axios.get(url).then(function (response) {
+				_this13.gastos = response.data;
+			});
+		},
+		editGasto: function editGasto(gasto) {
+
+			this.fillgasto.detalle = gasto.detalle;
+			this.fillgasto.valor = gasto.valor;
+			this.fillgasto.id = gasto.id;
+
+			$('#edit').modal('show');
+			$('#error').empty();
+		},
+		updateGasto: function updateGasto(id) {
+			var _this14 = this;
+
+			var url = 'gasto/' + id;
+			axios.put(url, this.fillgasto).then(function (response) {
+
+				_this14.getGasto();
+				fillgasto = {
+					'id': '',
+					'valor': '',
+					'detalle': ''
+
+				};
+				_this14.errors = [];
+				$('#edit').modal('hide');
+				toastr.success('cliente Actualizada Correctamente');
+			}).catch(function (error) {
+				_this14.errors = error.response.data;
+			});
+		},
+		deleteGasto: function deleteGasto(gasto) {
+			var _this15 = this;
+
+			var urlDelete = 'gasto/' + gasto.id;
+			axios.delete(urlDelete).then(function (response) {
+				_this15.getGasto();
+				toastr.success('Gasto eliminado eliminado correctamente');
+			});
+		},
+		createGasto: function createGasto() {
+			var _this16 = this;
+
+			var url = 'gasto';
+			axios.post(url, {
+				valor: this.valor,
+				detalle: this.detalle
+
+			}).then(function (response) {
+
+				_this16.getGasto();
+				_this16.valor = '';
+				_this16.detalle = '';
+
+				_this16.errors = [];
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('Gasto Guardado Correctamente');
+			}).catch(function (error) {
+				_this16.errors = error.response.data;
 			});
 		}
 

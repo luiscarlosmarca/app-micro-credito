@@ -17,7 +17,7 @@
           <label for="persona">Cedula </label>
           <input type="text" name="cedula" class="form-control" v-model="fillCobrador.cedula">
           
-          <label for="persona">Email </label>
+         <label for="persona">Email </label>
           <input type="text" name="email" class="form-control" v-model="fillCobrador.email">
            
           <label for="persona">Celular </label>
@@ -25,17 +25,13 @@
           
           <label for="persona">Direccion </label>
           <input type="text" name="direccion" class="form-control" v-model="fillCobrador.direccion">
-         
-          <input type="hidden" name="role" value="{!!$role !!}"  v-model="fillCobrador.role">
+      
+          <label for="persona">Carteras</label>
           
-          @if($role!="cobrador")
-            <label for="persona">Estado</label>
-            <input type="text" name="estado" value="test" class="form-control" v-model="fillCobrador.Estado">
+          
+          {{ Form::select('carteras', $carteras, 0,['class'=>'form-control carteras m'],['v-model'=>'carteras']) }}
 
-            <label for="persona">Cobrador</label>
-            <input type="text" name="estado" class="form-control" v-model="fillCobrador.Cobrador_id">
-
-          @endif
+          
         <div id="error">
             <span v-for="error in errors"  class="text-danger">
             @{{error}}

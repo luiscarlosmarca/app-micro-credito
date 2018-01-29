@@ -14,7 +14,20 @@
                         </div>
                     @endif
 
-                   Dashboard
+                 {{--    <pre>
+                        @foreach($personas as $persona)
+
+                        <li>{{$persona->nombre}}</li>
+                                
+                                @foreach($persona->carteras as $cartera)
+
+                                    <li>{{$cartera->nombre}}</li>
+                                      
+                                @endforeach  
+
+                         @endforeach   
+
+                    </pre> --}}
                 </div>
             </div>
         </div>
