@@ -42,7 +42,7 @@
                   <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteCobrador(cobrador.id)">Eliminar</a>
                 </td>
               </tr>
-
+              
             </tbody>
           </table>
         

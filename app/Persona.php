@@ -2,7 +2,7 @@
 
 namespace credito;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model; 
 
 class Persona extends Model
 {

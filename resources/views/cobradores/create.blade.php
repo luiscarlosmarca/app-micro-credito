@@ -28,17 +28,8 @@
            <label for="persona">Direccion </label>
           <input type="text" name="direccion" class="form-control" v-model="direccion">
          
-          <input type="hidden" name="role" value="{!!$role !!}"  v-model="role">
-          
-          @if($role!="cobrador")
-            <label for="persona">Estado</label>
-            <input type="text" name="estado" value="test" class="form-control" v-model="Estado">
-
-            <label for="persona">Cobrador</label>
-            <input type="text" name="estado" class="form-control" v-model="Cobrador_id">
-
-          @endif 
-         
+           <input type="hidden" name="role" value="{!!$role !!}"  v-model="role"> 
+        
 
           <span v-for="error in errors" id="error" lass="text-danger">
             @{{error}}
