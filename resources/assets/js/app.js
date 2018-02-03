@@ -409,3 +409,211 @@ const gasto = new Vue({
 	}
 
 });
+
+const prestamo = new Vue({
+    el: '#prestamos',
+   	created: function() {
+		this.getPrestamo();
+	},
+	data:{
+		prestamos:[],
+		articulo:'',
+		valor:'',
+		cartera_id:'',
+		cobrador_id:'',
+		cliente_id:'',
+		estado:'',
+		valor:'',
+		valor_seguro:'',
+		valor_cuota:'',
+		plazo:'',
+		pago_domingos:'',
+
+		errors:[],
+		fillprestamos:{
+			'detalle':'',
+			'valor':'',
+			'id':''
+		}
+	},	
+	methods: {
+		getPrestamo: function() {
+			var url = 'prestamo';
+			axios.get(url).then(response => {
+				this.prestamos = response.data
+			});
+		},
+		editPrestamo: function(prestamo) {
+
+	
+			this.fillprestamos.detalle=prestamos.detalle;
+			this.fillprestamos.valor=prestamos.valor;
+			this.fillprestamos.id=prestamos.id;
+			
+			$('#edit').modal('show');
+			$('#error').empty();
+
+		},
+		updatePrestamo:function(id) {
+			var url = 'prestamo/' + id;
+			axios.put(url,this.fillgasto).then(response=>{
+
+				this.getPrestamo();
+				fillprestamos={
+					'id':'',
+					'valor':'',
+					'detalle':'',
+					
+
+				}
+			this.errors=[];
+				$('#edit').modal('hide');
+				toastr.success('cliente Actualizada Correctamente');
+			}).catch(error=>{
+				this.errors = error.response.data;
+			});
+
+		},
+		deletePrestamo:function(prestamo){
+			var urlDelete ='prestamo/' + prestamo.id
+			axios.delete(urlDelete).then(response=>{
+				this.getPrestamo();  
+				toastr.success('Prestamo eliminado eliminado correctamente');
+			});
+			
+		},
+		createPrestamo:function(){
+
+			var url='prestamo'
+
+			axios.post(url,{
+				valor: this.valor,
+				articulo: this.articulo,
+				valor_cuota: this.valor_cuota,
+				valor_seguro: this.valor_seguro,
+				plazo: this.plazo,
+				estado: this.estado,
+				cliente_id: $(".cliente_id").val(),
+				cartera_id: $(".cartera_id").val(),
+				cobrador_id: $(".cobrador_id").val(),
+				pago_domingos: this.pago_domingos,
+
+				
+
+			}).then(response=>{
+
+				this.getPrestamo();
+				this.valor='';
+				this.articulo='',
+				this.valor_cuota='',
+				this.valor_seguro='',
+				this.plazo='',
+				this.estado='',
+				this.cliente_id='',
+				this.clarteraid='',
+				this.cobrador_id='',
+				this.pago_domingos='',
+			
+				this.errors=[]; 
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('Prestamo Guardado Correctamente'); 
+			}).catch(error =>{
+				this.errors=error.response.data
+			});
+
+		},	
+
+	}
+
+});
+
+const cobro = new Vue({
+    el: '#cobros',
+   	created: function() {
+		this.getPrestamo();
+	},
+	data:{
+		prestamos:[],
+		articulo:'',
+		valor:'',
+		errors:[],
+		fillprestamos:{
+			'detalle':'',
+			'valor':'',
+			'id':''
+		}
+	},	
+	methods: {
+		getPrestamo: function() {
+			var url = 'prestamo';
+			axios.get(url).then(response => {
+				this.prestamos = response.data
+			});
+		},
+		editPrestamo: function(prestamo) {
+
+	
+			this.fillprestamos.detalle=prestamos.detalle;
+			this.fillprestamos.valor=prestamos.valor;
+			this.fillprestamos.id=prestamos.id;
+			
+			$('#edit').modal('show');
+			$('#error').empty();
+
+		},
+		updatePrestamo:function(id) {
+			var url = 'prestamo/' + id;
+			axios.put(url,this.fillgasto).then(response=>{
+
+				this.getPrestamo();
+				fillprestamos={
+					'id':'',
+					'valor':'',
+					'detalle':'',
+					
+
+				}
+			this.errors=[];
+				$('#edit').modal('hide');
+				toastr.success('cliente Actualizada Correctamente');
+			}).catch(error=>{
+				this.errors = error.response.data;
+			});
+
+		},
+		deletePrestamo:function(prestamo){
+			var urlDelete ='prestamo/' + prestamo.id
+			axios.delete(urlDelete).then(response=>{
+				this.getPrestamo();  
+				toastr.success('Prestamo eliminado eliminado correctamente');
+			});
+			
+		},
+		createPrestamo:function(){
+
+			var url='prestamo'
+			axios.post(url,{
+				valor: this.valor,
+				detalle: this.detalle,
+				
+
+			}).then(response=>{
+
+				this.getPrestamo();
+				this.valor='';
+				this.detalle='';
+			
+				this.errors=[]; 
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('Prestamo Guardado Correctamente'); 
+			}).catch(error =>{
+				this.errors=error.response.data
+			});
+
+		},	
+
+	}
+
+});

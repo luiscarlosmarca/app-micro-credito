@@ -114,8 +114,8 @@
        
         </li>
         <li>
-          <a href="../widgets.html">
-            <i class="fa fa-th"></i> <span>Cobrar</span>
+          <a href="/cobros">
+            <i class="fa fa-th"></i> <span>Cobros</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green">Money</small>
             </span>
@@ -124,8 +124,8 @@
        
 
         <li>
-          <a href="../calendar.html">
-            <i class="fa fa-calendar"></i> <span>Prestar</span>
+          <a href="/prestamos">
+            <i class="fa fa-calendar"></i> <span>Prestamos</span>
             <span class="pull-right-container">
             <small class="label pull-right bg-green">Money</small>
             </span>

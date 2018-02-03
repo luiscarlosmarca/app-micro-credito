@@ -14,19 +14,13 @@ class PrestamoController extends Controller
      */
     public function index()
     {
-        //
+         $prestamo=Prestamo::get();
+ 
+         return $prestamo;
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+   
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +29,18 @@ class PrestamoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $this->validate($request,[
+            
+            'valor'=>'integer',
+            'articulo'=>'required'
+                      
+        ]);
+
+         $prestamo=Prestamo::create($request->all()); 
+
+        return;
+
     }
 
     /**
@@ -78,8 +83,9 @@ class PrestamoController extends Controller
      * @param  \credito\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prestamo $prestamo)
+    public function destroy($id)
     {
-        //
+        $prestamo=Prestamo::findOrFail($id);
+        $prestamo->delete(); 
     }
 }
