@@ -1,4 +1,4 @@
-ç@extends('layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <div  id="cobrador"  class="box-header with-border">

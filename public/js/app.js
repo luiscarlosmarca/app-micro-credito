@@ -74,7 +74,7 @@ module.exports = __webpack_require__(1);
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _data;
+var _fillprestamo, _data;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -508,11 +508,14 @@ var prestamo = new Vue({
 		cobrador_id: '',
 		cliente_id: '',
 		estado: ''
-	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamos', {
-		'detalle': '',
+	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
+		'articulo': '',
 		'valor': '',
-		'id': ''
-	}), _data),
+		'cartera_id': '',
+		'cobrador_id': '',
+		'cliente_id': '',
+		'estado': ''
+	}, _defineProperty(_fillprestamo, 'valor', ''), _defineProperty(_fillprestamo, 'valor_seguro', ''), _defineProperty(_fillprestamo, 'valor_cuota', ''), _defineProperty(_fillprestamo, 'plazo', ''), _defineProperty(_fillprestamo, 'pago_domingos', ''), _defineProperty(_fillprestamo, 'id', ''), _fillprestamo)), _data),
 	methods: {
 		getPrestamo: function getPrestamo() {
 			var _this17 = this;
@@ -524,9 +527,17 @@ var prestamo = new Vue({
 		},
 		editPrestamo: function editPrestamo(prestamo) {
 
-			this.fillprestamos.detalle = prestamos.detalle;
-			this.fillprestamos.valor = prestamos.valor;
-			this.fillprestamos.id = prestamos.id;
+			this.fillprestamo.articulo = prestamo.articulo;
+			this.fillprestamo.valor = prestamo.valor;
+			this.fillprestamo.estado = prestamo.estado;
+			this.fillprestamo.valor_cuota = prestamo.valor_cuota;
+			this.fillprestamo.valor_seguro = prestamo.valor_seguro;
+			this.fillprestamo.plazo = prestamo.plazo;
+			this.fillprestamo.pago_domingos = prestamo.pago_domingos;
+			this.fillprestamo.cartera_id = prestamo.cartera_id;
+			this.fillprestamo.cliente_id = prestamo.cliente_id;
+			this.fillprestamo.cobrador_id = prestamo.cobrador_id;
+			this.fillprestamo.id = prestamo.id;
 
 			$('#edit').modal('show');
 			$('#error').empty();
@@ -535,18 +546,21 @@ var prestamo = new Vue({
 			var _this18 = this;
 
 			var url = 'prestamo/' + id;
-			axios.put(url, this.fillgasto).then(function (response) {
+			axios.put(url, this.fillprestamo).then(function (response) {
+				var _fillprestamo2;
 
 				_this18.getPrestamo();
-				fillprestamos = {
-					'id': '',
+				fillprestamo = (_fillprestamo2 = {
+					'articulo': '',
 					'valor': '',
-					'detalle': ''
-
-				};
+					'cartera_id': '',
+					'cobrador_id': '',
+					'cliente_id': '',
+					'estado': ''
+				}, _defineProperty(_fillprestamo2, 'valor', ''), _defineProperty(_fillprestamo2, 'valor_seguro', ''), _defineProperty(_fillprestamo2, 'valor_cuota', ''), _defineProperty(_fillprestamo2, 'plazo', ''), _defineProperty(_fillprestamo2, 'pago_domingos', ''), _fillprestamo2);
 				_this18.errors = [];
 				$('#edit').modal('hide');
-				toastr.success('cliente Actualizada Correctamente');
+				toastr.success('Prestamo Actualizada Correctamente');
 			}).catch(function (error) {
 				_this18.errors = error.response.data;
 			});

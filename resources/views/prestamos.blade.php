@@ -1,4 +1,4 @@
-ç@extends('layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <div  id="prestamos"  class="box-header with-border">
@@ -50,7 +50,7 @@
           </table>
         
       @include('prestamos.create')
-      {{--      @include('cobradores.edit') --}}
+      @include('prestamos.edit') 
             
           
         </div>

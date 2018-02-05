@@ -72,9 +72,20 @@ class PrestamoController extends Controller
      * @param  \credito\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prestamo $prestamo)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+
+            'valor_cuota'=>['required','integer'],
+            'articulo'=>'string',
+            'valor'=>'integer',
+                       
+        ]);
+
+        $prestamo=Prestamo::find($id)->update($request->all());
+        
+        return;
+
     }
 
     /**

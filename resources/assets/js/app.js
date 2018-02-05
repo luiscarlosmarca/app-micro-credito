@@ -430,9 +430,18 @@ const prestamo = new Vue({
 		pago_domingos:'',
 
 		errors:[],
-		fillprestamos:{
-			'detalle':'',
+		fillprestamo:{
+			'articulo':'',
 			'valor':'',
+			'cartera_id':'',
+			'cobrador_id':'',
+			'cliente_id':'',
+			'estado':'',
+			'valor':'',
+			'valor_seguro':'',
+			'valor_cuota':'',
+			'plazo':'',
+			'pago_domingos':'',
 			'id':''
 		}
 	},	
@@ -443,37 +452,51 @@ const prestamo = new Vue({
 				this.prestamos = response.data
 			});
 		},
-		editPrestamo: function(prestamo) {
-
+		 editPrestamo: function(prestamo) {
 	
-			this.fillprestamos.detalle=prestamos.detalle;
-			this.fillprestamos.valor=prestamos.valor;
-			this.fillprestamos.id=prestamos.id;
+			this.fillprestamo.articulo=prestamo.articulo;
+			this.fillprestamo.valor=prestamo.valor;
+			this.fillprestamo.estado=prestamo.estado;
+			this.fillprestamo.valor_cuota=prestamo.valor_cuota;
+			this.fillprestamo.valor_seguro=prestamo.valor_seguro;
+			this.fillprestamo.plazo=prestamo.plazo;
+			this.fillprestamo.pago_domingos=prestamo.pago_domingos;
+			this.fillprestamo.cartera_id=prestamo.cartera_id;
+			this.fillprestamo.cliente_id=prestamo.cliente_id;
+			this.fillprestamo.cobrador_id=prestamo.cobrador_id;
+			this.fillprestamo.id=prestamo.id;
 			
 			$('#edit').modal('show');
 			$('#error').empty();
 
 		},
-		updatePrestamo:function(id) {
+		 updatePrestamo:function(id) {
 			var url = 'prestamo/' + id;
-			axios.put(url,this.fillgasto).then(response=>{
+			axios.put(url,this.fillprestamo).then(response=>{
 
 				this.getPrestamo();
-				fillprestamos={
-					'id':'',
+				fillprestamo={
+					'articulo':'',
 					'valor':'',
-					'detalle':'',
+					'cartera_id':'',
+					'cobrador_id':'',
+					'cliente_id':'',
+					'estado':'',
+					'valor':'',
+					'valor_seguro':'',
+					'valor_cuota':'',
+					'plazo':'',
+					'pago_domingos':'',	
 					
-
-				}
+				};
 			this.errors=[];
 				$('#edit').modal('hide');
-				toastr.success('cliente Actualizada Correctamente');
+				toastr.success('Prestamo Actualizada Correctamente');
 			}).catch(error=>{
 				this.errors = error.response.data;
 			});
 
-		},
+		 },
 		deletePrestamo:function(prestamo){
 			var urlDelete ='prestamo/' + prestamo.id
 			axios.delete(urlDelete).then(response=>{
