@@ -15,6 +15,8 @@ class PrestamoController extends Controller
     public function index()
     {
          $prestamo=Prestamo::get();
+
+         
  
          return $prestamo;
     }
@@ -37,7 +39,7 @@ class PrestamoController extends Controller
                       
         ]);
 
-         $prestamo=Prestamo::create($request->all()); 
+        $prestamo=Prestamo::create($request->all()); 
 
         return;
 

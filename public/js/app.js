@@ -95,6 +95,7 @@ window.Vue = __webpack_require__(35);
  */
 
 Vue.component('example-component', __webpack_require__(38));
+//Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
 
 var cartera = new Vue({
 	el: '#cartera',
@@ -508,7 +509,7 @@ var prestamo = new Vue({
 		cobrador_id: '',
 		cliente_id: '',
 		estado: ''
-	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
+	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'saldo', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
 		'articulo': '',
 		'valor': '',
 		'cartera_id': '',
@@ -589,13 +590,14 @@ var prestamo = new Vue({
 				cliente_id: $(".cliente_id").val(),
 				cartera_id: $(".cartera_id").val(),
 				cobrador_id: $(".cobrador_id").val(),
-				pago_domingos: this.pago_domingos
+				pago_domingos: this.pago_domingos,
+				saldo: this.valor
 
 			}).then(function (response) {
 
 				_this20.getPrestamo();
 				_this20.valor = '';
-				_this20.articulo = '', _this20.valor_cuota = '', _this20.valor_seguro = '', _this20.plazo = '', _this20.estado = '', _this20.cliente_id = '', _this20.clarteraid = '', _this20.cobrador_id = '', _this20.pago_domingos = '', _this20.errors = [];
+				_this20.articulo = '', _this20.valor_cuota = '', _this20.valor_seguro = '', _this20.plazo = '', _this20.estado = '', _this20.cliente_id = '', _this20.clarteraid = '', _this20.cobrador_id = '', _this20.pago_domingos = '', _this20.saldo = '', _this20.errors = [];
 				$('#create').modal('hide');
 				$('#error').empty();
 				toastr.success('Prestamo Guardado Correctamente');
@@ -628,7 +630,7 @@ var cobro = new Vue({
 		getPrestamo: function getPrestamo() {
 			var _this21 = this;
 
-			var url = 'prestamo';
+			var url = 'cobro';
 			axios.get(url).then(function (response) {
 				_this21.prestamos = response.data;
 			});

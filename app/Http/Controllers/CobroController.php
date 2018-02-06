@@ -3,6 +3,7 @@
 namespace credito\Http\Controllers;
 
 use credito\Cobro;
+use credito\Prestamo;
 use Illuminate\Http\Request;
 
 class CobroController extends Controller
@@ -14,7 +15,14 @@ class CobroController extends Controller
      */
     public function index()
     {
-        //
+        $prestamo=Prestamo::get();
+
+        // return response()->json([
+        //     'prestamo'    => $prestamo,
+
+        // ], 200);
+ 
+        return $prestamo;
     }
 
     /**

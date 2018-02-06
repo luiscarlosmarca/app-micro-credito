@@ -30,7 +30,7 @@
             </thead>
             <tbody>
               <tr v-for="prestamo in prestamos">
-                <td width="10px">@{{prestamo.cartera_id}}</td>
+                <td width="10px">@{{prestamo.id}}</td>
                 <td width="10px">@{{prestamo.cartera_id}}</td>
                 <td width="10px">@{{prestamo.cobrador_id}}</td>
                 <td>@{{prestamo.cliente_id}}</td>

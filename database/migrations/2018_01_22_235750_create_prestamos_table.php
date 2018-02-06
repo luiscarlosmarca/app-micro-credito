@@ -26,6 +26,7 @@ class CreatePrestamosTable extends Migration
             $table->double('valor_seguro');
             $table->double('valor_cuota');
             $table->string('estado');
+            $table->double('saldo');
 
             $table->foreign('cobrador_id')->references('id')->on('personas');
             $table->foreign('cliente_id')->references('id')->on('personas');
