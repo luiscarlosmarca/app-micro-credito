@@ -31,8 +31,9 @@ class CobroController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $prestamos=Prestamo::orderby('ASC','ID')->get();
+        return view('cobros',compact('prestamos'));
     }
 
     /**
@@ -43,7 +44,19 @@ class CobroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            
+            'valor'=>['integer','required']
+            
+                      
+        ]);
+
+        $cobro=Cobro::create($request->all()); 
+
+        $prestamo=Prestamo::find($request->prestamo_id);
+
+
+        return $prestamo;
     }
 
     /**

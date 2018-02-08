@@ -46,7 +46,7 @@ Route::resource('gasto','GastoController',['except'=>'create','edit']);
 
 Route::resource('prestamo','PrestamoController',['except'=>'create','edit']);
 
-Route::resource('cobro','CobroController',['except'=>'create','edit']);
+Route::resource('cobro','CobroController',['except'=>'edit']);
 
 
 

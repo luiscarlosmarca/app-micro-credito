@@ -5,6 +5,8 @@ namespace credito\Http\Controllers;
 use Illuminate\Http\Request;
 use credito\Cartera;
 use credito\Persona;
+use credito\Prestamo;
+use credito\Cobro;
 class HomeController extends Controller
 {
     /**
@@ -63,6 +65,8 @@ class HomeController extends Controller
     }
 
     public function cobros(){
-        return view('cobros');
+
+        $prestamos=Prestamo::orderBy('orden','ASC')->get();
+        return view('cobros',compact('prestamos'));
     }
 }

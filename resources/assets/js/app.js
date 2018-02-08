@@ -562,7 +562,7 @@ const cobro = new Vue({
 	},
 	data:{
 		prestamos:[],
-		articulo:'',
+		prestamo_id:'',
 		valor:'',
 		errors:[],
 		fillprestamos:{
@@ -617,29 +617,34 @@ const cobro = new Vue({
 			});
 			
 		},
-		createPrestamo:function(){
+		PagarCuota:function(prestamo){
 
-			var url='prestamo'
+			var url='cobro'
+			var valor="#"+prestamo;
+			valor_cuota=$(valor).val();
 			axios.post(url,{
-				valor: this.valor,
-				detalle: this.detalle,
+				valor: valor_cuota,
+				prestamo_id: prestamo,
 				
 
 			}).then(response=>{
 
-				this.getPrestamo();
+				//this.getPrestamo();
 				this.valor='';
-				this.detalle='';
+				this.prestamo_id='';
 			
 				this.errors=[]; 
-				$('#create').modal('hide');
+				
 				$('#error').empty();
-				toastr.success('Prestamo Guardado Correctamente'); 
+				toastr.success('Cobro  Guardado Correctamente'); 
 			}).catch(error =>{
 				this.errors=error.response.data
 			});
 
-		},	
+		},
+		DebeCuota:function(){
+			alert("debd");
+		}		
 
 	}
 
