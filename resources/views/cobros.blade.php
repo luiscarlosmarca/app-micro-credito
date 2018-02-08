@@ -47,6 +47,7 @@
                           echo "$saldo";
 
                         }else{
+                          
 
                          $saldo=$saldo*-1;
                          echo "ganacias";
