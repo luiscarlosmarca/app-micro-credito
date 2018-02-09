@@ -11,29 +11,27 @@
                                  
           
        
-          <table class="table table-hover table-striped">
+          <table class="table table-hover table-striped table-responsive">
             <thead>
               <tr>
-                <th>Prestamo</th>
+                <th style="width: 20px;">Prestamo</th>
                 <th>Cliente</th>
                 <th>Cobrador</th>
-                <th>Saldo</th>
-                <th>Cuota</th>
+                <th style="width: 100px;">Saldo</th>
+                <th>Valor</th>
+                <th style="width: 200px;">Cuota</th>
                 <th>Accion</th>
          
               
-                <th colspan="2">
-                  &nbsp;
-                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                  @foreach ($prestamos as $prestamo)
-                    <td width="10px">{{$prestamo->id}}</td>
+                    <td>{{$prestamo->id}}</td>
                     <td width="10px">{{$prestamo->cliente->nombre }}</td>
                     <td width="10px">{{$prestamo->cobrador->nombre }}</td>
-                    <td width="10px">
+                    <td width="20px" class="success">
                      <?php $total_pagos=0; ?>
                      @foreach ($prestamo->cobros as $cobro)
                       <?php $total_pagos=$cobro->valor+$total_pagos; ?>
@@ -41,19 +39,26 @@
                      @endforeach 
 
                     
-                      <?php $saldo= $prestamo->valor -$total_pagos ;
-
+                      <?php $saldo= $prestamo->valor-$total_pagos -$prestamo->pago_domingos-$prestamo->valor_seguro;
+                        
+                          
+                        
                         if($saldo>0){
+                          $saldo=number_format( $saldo, 0, '.', '.' );
+                          echo "$";
                           echo "$saldo";
 
                         }else{
-                          
+
 
                          $saldo=$saldo*-1;
-                         echo "ganacias";
+                         $saldo=number_format( $saldo, 0, '.', '.' );
+                         echo "<label class='control-label bg-green' for='inputSuccess'><i class='fa fa-check'></i>";
+                          echo "$";
                          echo "$saldo";
+                         echo "</label>";
+                      
                         }
-
 
                        ?>
 
@@ -63,11 +68,11 @@
 
 
                     </td>
-                    
+                     <td > <?php $valor=number_format( $prestamo->valor, 0, '.', '.' ); echo "$$valor";?></td>
                     <td>
                        <div class="input-group">
                         <span class="input-group-addon">$</span>
-                        <input class="form-control"  id="{{$prestamo->id}}" type="text">
+                        <input class="form-control"  id="{{$prestamo->id}}" type="text" v-on:keyup.enter="PagarCuota({{$prestamo->id}})">
                         <span class="input-group-addon">.00</span>
                        </div>
                     </td>
@@ -76,7 +81,7 @@
     
        
 
-                <td width="10px">
+               {{--  <td width="10px">
                     <div class="radio">
                       <label>
                         <input name="optionsRadios" id="optionsRadios1" v-on:click="PagarCuota({{$prestamo->id}},40000)" value="option1" type="radio">
@@ -93,7 +98,7 @@
                       </label>
                     </div>
             
-                </td>
+                </td> --}}
                 <td>  <a href="#" class="btn btn-warning btn-sm"n v-on:click.prevent="editPrestamo(prestamo)">Editar</a></td>
               </tr>
             @endforeach

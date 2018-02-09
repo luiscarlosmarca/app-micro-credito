@@ -38,10 +38,10 @@
               <input type="text" name="valor" class="form-control" v-model="valor">
 
               <label for="persona">Plazo </label>
-              <input type="text" name="plazo" class="form-control" v-model="plazo">
+              <input type="text" name="plazo" class="form-control" v-on:focus="calcularInteres" v-model="plazo">
            
               <label for="persona">Pagos domingo </label>
-              <input type="text" name="pago_domingos" class="form-control" v-model="pago_domingos">
+              <input type="text" name="pago_domingos" class="form-control" v-on:focus="calcularCuota" v-model="pago_domingos">
                 
               <label for="persona">Valor seguro</label>
               <input type="text" name="valor_seguro" value="" class="form-control" v-model="valor_seguro">

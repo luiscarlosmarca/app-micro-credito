@@ -410,7 +410,8 @@ const gasto = new Vue({
 	}
 
 });
-
+var interes;
+var cuota;
 const prestamo = new Vue({
     el: '#prestamos',
    	created: function() {
@@ -429,7 +430,7 @@ const prestamo = new Vue({
 		valor_cuota:'',
 		plazo:'',
 		pago_domingos:'',
-		saldo:'',
+		
 
 		errors:[],
 		fillprestamo:{
@@ -522,7 +523,7 @@ const prestamo = new Vue({
 				cartera_id: $(".cartera_id").val(),
 				cobrador_id: $(".cobrador_id").val(),
 				pago_domingos: this.pago_domingos,
-				saldo:this.valor, 
+				
 
 				
 
@@ -550,7 +551,18 @@ const prestamo = new Vue({
 			});
 
 		},	
+		calcularInteres:function(){
 
+			interes=((this.valor*20)/100);
+			interes= parseInt(interes) +  parseInt(this.valor);
+			this.valor= interes;
+		},
+		calcularCuota:function(){
+
+			cuota=interes/this.plazo;
+			this.pago_domingos= cuota*4;
+			this.valor_cuota=cuota;
+		}	
 	}
 
 });
@@ -642,7 +654,7 @@ const cobro = new Vue({
 			});
 
 		},
-		DebeCuota:function(){
+		test:function(){
 			alert("debd");
 		}		
 

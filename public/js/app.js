@@ -1390,7 +1390,8 @@ var gasto = new Vue({
 	}
 
 });
-
+var interes;
+var cuota;
 var prestamo = new Vue({
 	el: '#prestamos',
 	created: function created() {
@@ -1404,7 +1405,7 @@ var prestamo = new Vue({
 		cobrador_id: '',
 		cliente_id: '',
 		estado: ''
-	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'saldo', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
+	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
 		'articulo': '',
 		'valor': '',
 		'cartera_id': '',
@@ -1485,8 +1486,7 @@ var prestamo = new Vue({
 				cliente_id: $(".cliente_id").val(),
 				cartera_id: $(".cartera_id").val(),
 				cobrador_id: $(".cobrador_id").val(),
-				pago_domingos: this.pago_domingos,
-				saldo: this.valor
+				pago_domingos: this.pago_domingos
 
 			}).then(function (response) {
 
@@ -1499,8 +1499,19 @@ var prestamo = new Vue({
 			}).catch(function (error) {
 				_this20.errors = error.response.data;
 			});
-		}
+		},
+		calcularInteres: function calcularInteres() {
 
+			interes = this.valor * 20 / 100;
+			interes = parseInt(interes) + parseInt(this.valor);
+			this.valor = interes;
+		},
+		calcularCuota: function calcularCuota() {
+
+			cuota = interes / this.plazo;
+			this.pago_domingos = cuota * 4;
+			this.valor_cuota = cuota;
+		}
 	}
 
 });
@@ -1592,7 +1603,7 @@ var cobro = new Vue({
 				_this24.errors = error.response.data;
 			});
 		},
-		DebeCuota: function DebeCuota() {
+		test: function test() {
 			alert("debd");
 		}
 

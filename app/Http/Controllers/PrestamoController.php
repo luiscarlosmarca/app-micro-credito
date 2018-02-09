@@ -35,7 +35,9 @@ class PrestamoController extends Controller
         $this->validate($request,[
             
             'valor'=>'integer',
-            'articulo'=>'required'
+            'articulo'=>'required',
+            'plazo'=>'integer',
+            'valor_cuota'=>'integer',
                       
         ]);
 
