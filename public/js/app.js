@@ -1545,7 +1545,7 @@ var cobro = new Vue({
 		getPrestamo: function getPrestamo() {
 			var _this21 = this;
 
-			var url = 'cobro';
+			var url = '/cobro';
 			axios.get(url).then(function (response) {
 				_this21.prestamos = response.data;
 			});
@@ -1570,7 +1570,7 @@ var cobro = new Vue({
 		ordenar: function ordenar(id) {
 			var _this22 = this;
 
-			var url = 'prestamo/' + id;
+			var url = '/prestamo/' + id;
 			axios.put(url, this.orden).then(function (response) {
 
 				orden = { orden: '' };
@@ -1586,7 +1586,7 @@ var cobro = new Vue({
 		PagarCuota: function PagarCuota(prestamo) {
 			var _this23 = this;
 
-			var url = 'cobro';
+			var url = '/cobro';
 			var valor = "#" + prestamo;
 			valor_cuota = $(valor).val();
 			this.efectivo_diario = parseInt(this.efectivo_diario) + parseInt(valor_cuota);
