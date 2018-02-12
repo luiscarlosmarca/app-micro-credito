@@ -5,6 +5,7 @@ namespace credito\Http\Controllers;
 use credito\Prestamo;
 use Illuminate\Http\Request;
 
+
 class PrestamoController extends Controller
 {
     /**
@@ -15,6 +16,8 @@ class PrestamoController extends Controller
     public function index()
     {
          $prestamo=Prestamo::get();
+
+         
  
          return $prestamo;
     }
@@ -33,11 +36,13 @@ class PrestamoController extends Controller
         $this->validate($request,[
             
             'valor'=>'integer',
-            'articulo'=>'required'
+            'articulo'=>'required',
+            'plazo'=>'integer',
+            'valor_cuota'=>'integer',
                       
         ]);
 
-         $prestamo=Prestamo::create($request->all()); 
+        $prestamo=Prestamo::create($request->all()); 
 
         return;
 
@@ -72,9 +77,25 @@ class PrestamoController extends Controller
      * @param  \credito\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prestamo $prestamo)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+
+            'valor_cuota'=>['integer'],
+            'articulo'=>'string',
+            'valor'=>'integer',
+                       
+        ]);
+
+        // if(!$request->has('valor')){
+        //     $request->merge('orden',)
+        // }
+
+
+        $prestamo=Prestamo::find($id)->update($request->all());
+        
+        return;
+
     }
 
     /**
@@ -84,8 +105,11 @@ class PrestamoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+
         $prestamo=Prestamo::findOrFail($id);
         $prestamo->delete(); 
+
+        return;
     }
 }

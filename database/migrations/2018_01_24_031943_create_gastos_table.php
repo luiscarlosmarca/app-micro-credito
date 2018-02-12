@@ -17,7 +17,8 @@ class CreateGastosTable extends Migration
             $table->increments('id');
             $table->string('detalle');
             $table->double('valor');
-            
+            $table->integer('cartera_id')->unsigned()->nullable();
+            $table->foreign('cartera_id')->references('id')->on('carteras');
             $table->timestamps();
         });
     }

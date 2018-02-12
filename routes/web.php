@@ -26,6 +26,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/home/filter', 'CarteraController@index')->name('cartera');
+
 Route::get('/carteras', 'HomeController@carteras')->name('carteras');
 
 Route::get('/cobradores', 'HomeController@cobradores')->name('cobradores');
@@ -33,6 +35,8 @@ Route::get('/cobradores', 'HomeController@cobradores')->name('cobradores');
 Route::get('/clientes', 'HomeController@clientes')->name('clientes');
 
 Route::get('/cobros', 'HomeController@cobros')->name('cobros');
+
+Route::get('/movimientos/{id}', 'HomeController@movimientos')->name('movimientos');
 
 Route::get('/prestamos', 'HomeController@prestamos')->name('prestamos');
 
@@ -45,6 +49,8 @@ Route::resource('persona','PersonaController',['except'=>'create','edit']);
 Route::resource('gasto','GastoController',['except'=>'create','edit']);
 
 Route::resource('prestamo','PrestamoController',['except'=>'create','edit']);
+
+Route::resource('cobro','CobroController',['except'=>'edit']);
 
 
 

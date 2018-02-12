@@ -14,7 +14,30 @@ class CarteraController extends Controller
      */
     public function index()
     {
-        $cartera=Cartera::orderBy('id','DESC')->get();
+        $fecha='2018-02-10';
+      $cartera = Cartera::select('gastos.valor','cobros.valor','prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos')
+                        ->join('gastos','carteras.id','gastos.cartera_id')
+                        ->join('prestamos','carteras.id','prestamos.cartera_id')
+                        ->join('cobros','prestamos.id','cobros.prestamo_id')
+                        ->whereDate('cobros.created_at','>=',$fecha)
+                        ->whereDate('gastos.created_at','<=',$fecha)
+                        ->get();
+
+            $cobros = \DB:: table('cobros cob')
+                        ->select('valor','')
+                        ->join('prestamos pres','cob.prestamo_id','pres.id')
+                        ->join('cartera car','cob.cartera_id','car.id')
+                        ->get();
+                dd($cobros);
+
+
+
+
+    // $cartera->map(function($_this) use($fecha){
+    //     $cobros =$_this->prestamos;
+    //     $gastos = $_this->gastos->where('detalle','sicario');
+    //     dd($gastos);
+    // });
      
         return $cartera;
     }

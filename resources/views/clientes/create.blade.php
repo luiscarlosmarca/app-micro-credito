@@ -44,7 +44,7 @@
 
        <div class="modal-footer">
           
-          <input type="submit" class="btn btn-success" value="Guardar Cobrador">
+          <input type="submit" class="btn btn-success" value="Guardar Cliente">
 
        </div>
       </div>

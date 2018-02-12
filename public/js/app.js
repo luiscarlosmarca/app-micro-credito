@@ -60,638 +60,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _data;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-__webpack_require__(11);
-
-window.Vue = __webpack_require__(35);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', __webpack_require__(38));
-
-var cartera = new Vue({
-	el: '#cartera',
-	created: function created() {
-		this.getCartera();
-	},
-	data: {
-		carteras: [],
-		newCartera: '',
-		errors: [],
-		fillCartera: {
-			'id': '',
-			'nombre': ''
-		}
-	},
-
-	methods: {
-		getCartera: function getCartera() {
-			var _this = this;
-
-			var urlCartera = 'cartera';
-			axios.get(urlCartera).then(function (response) {
-				_this.carteras = response.data;
-			});
-		},
-		editCartera: function editCartera(cartera) {
-
-			this.fillCartera.id = cartera.id;
-			this.fillCartera.nombre = cartera.nombre;
-			$('#edit').modal('show');
-		},
-		UpdateCartera: function UpdateCartera(id) {
-			var _this2 = this;
-
-			var url = 'cartera/' + id;
-			axios.put(url, this.fillCartera).then(function (response) {
-
-				_this2.getCartera();
-				_this2.fillCartera = { 'id': '', 'nombre': '' };
-				_this2.errors = [];
-				$('#edit').modal('hide');
-				toastr.success('Cartera Actualizada Correctamente');
-			}).catch(function (error) {
-				_this2.errors = error.response.data;
-			});
-		},
-		deleteCartera: function deleteCartera(cartera) {
-			var _this3 = this;
-
-			var urlDelete = 'cartera/' + cartera.id;
-			axios.delete(urlDelete).then(function (response) {
-				_this3.getCartera();
-				toastr.success('Eliminado correctamente');
-			});
-		},
-		createCartera: function createCartera() {
-			var _this4 = this;
-
-			var urlCreateCartera = 'cartera';
-			axios.post(urlCreateCartera, {
-
-				nombre: this.newCartera
-
-			}).then(function (response) {
-
-				_this4.getCartera();
-				_this4.newCartera = '';
-				_this4.errors = [];
-				$('#create').modal('hide');
-				toastr.success('Guardado Correctamente');
-			}).catch(function (error) {
-				_this4.errors = error.response.data;
-			});
-		}
-	}
-
-});
-
-var cobrador = new Vue({
-	el: '#cobrador',
-	created: function created() {
-		this.getCobrador();
-	},
-	data: {
-		cobradores: [],
-		id: '',
-		nombre: '',
-		cedula: '',
-		email: '',
-		celular: '',
-		direccion: '',
-		role: '',
-		errors: [],
-		fillCobrador: {
-			'id': '',
-			'nombre': '',
-			'cedula': '',
-			'celular': '',
-			'direccion': '',
-			'email': '',
-			carteras: []
-
-		}
-	},
-
-	methods: {
-		getCobrador: function getCobrador() {
-			var _this5 = this;
-
-			var urlCobrador = 'persona/cobrador';
-			axios.get(urlCobrador).then(function (response) {
-				_this5.cobradores = response.data;
-			});
-		},
-		editCobrador: function editCobrador(cobrador) {
-
-			this.fillCobrador.id = cobrador.id;
-			this.fillCobrador.nombre = cobrador.nombre;
-			this.fillCobrador.cedula = cobrador.cedula;
-			this.fillCobrador.celular = cobrador.celular;
-			this.fillCobrador.direccion = cobrador.direccion;
-			this.fillCobrador.email = cobrador.email;
-			this.fillCobrador.carteras = [$(".carteras").val()];
-			$('#edit').modal('show');
-			$('#error').empty();
-		},
-
-		UpdateCobrador: function UpdateCobrador(id) {
-			var _this6 = this;
-
-			var url = 'persona/' + id;
-			axios.put(url, this.fillCobrador).then(function (response) {
-
-				_this6.getCobrador();
-				_this6.fillCobrador = { 'id': '', 'nombre': '' };
-				_this6.errors = [];
-				$('#edit').modal('hide');
-				toastr.success('cobrador Actualizada Correctamente');
-			}).catch(function (error) {
-				_this6.errors = error.response.data;
-			});
-		},
-		deleteCobrador: function deleteCobrador(id) {
-			var _this7 = this;
-
-			var urlDelete = 'persona/' + id;
-			axios.delete(urlDelete).then(function (response) {
-				_this7.getCobrador();
-				toastr.success('Cobrador eliminado correctamente');
-			});
-		},
-		createCobrador: function createCobrador() {
-			var _this8 = this;
-
-			var url = 'persona';
-			axios.post(url, {
-
-				nombre: this.nombre,
-				cedula: this.cedula,
-				email: this.email,
-				celular: this.celular,
-				direccion: this.direccion,
-				role: 'cobrador'
-
-			}).then(function (response) {
-
-				_this8.getCobrador();
-				_this8.nombre = '';
-				_this8.cedula = '';
-				_this8.email = '';
-				_this8.celular = '';
-				_this8.direccion = '';
-				_this8.errors = [];
-				$('#create').modal('hide');
-				$('#error').empty();
-				toastr.success('Cobrador Guardado Correctamente');
-			}).catch(function (error) {
-				_this8.errors = error.response;
-			});
-		}
-
-	}
-
-});
-
-var cliente = new Vue({
-	el: '#cliente',
-	created: function created() {
-		this.getCliente();
-	},
-	data: {
-		clientes: [],
-		nombre: '',
-		cedula: '',
-		email: '',
-		celular: '',
-		role: '',
-		direccion: '',
-		cobrador_id: '',
-		estado: '',
-		errors: [],
-		fillcliente: {
-			'id': '',
-			'nombre': '',
-			'cedula': '',
-			'celular': '',
-			'direccion': '',
-			'email': '',
-			'cobrador_id': '',
-			'estado': ''
-
-		}
-	},
-	methods: {
-		getCliente: function getCliente() {
-			var _this9 = this;
-
-			var urlcliente = '/persona/cliente';
-			axios.get(urlcliente).then(function (response) {
-				_this9.clientes = response.data;
-			});
-		},
-		editCliente: function editCliente(cliente) {
-
-			this.fillcliente.id = cliente.id;
-			this.fillcliente.nombre = cliente.nombre;
-			this.fillcliente.cedula = cliente.cedula;
-			this.fillcliente.celular = cliente.celular;
-			this.fillcliente.direccion = cliente.direccion;
-			this.fillcliente.email = cliente.email;
-			this.fillcliente.estado = cliente.estado;
-
-			$(".cobrador_id").val(cliente.cobrador_id);
-			this.fillcliente.cobrador_id = cliente.cobrador_id;
-			$('#edit').modal('show');
-			$('#error').empty();
-		},
-		updateCliente: function updateCliente(id) {
-			var _this10 = this;
-
-			this.fillcliente.cobrador_id = $(".cobrador_id").val();
-			$('#edit').modal('show');
-			var url = 'persona/' + id;
-			axios.put(url, this.fillcliente).then(function (response) {
-
-				_this10.getCliente();
-				fillcliente = {
-					'id': '',
-					'nombre': '',
-					'cedula': '',
-					'celular': '',
-					'direccion': '',
-					'email': '',
-					'cobrador_id': '',
-					'estado': ''
-
-				};
-				_this10.errors = [];
-				$('#edit').modal('hide');
-				toastr.success('cliente Actualizada Correctamente');
-			}).catch(function (error) {
-				_this10.errors = error.response.data;
-			});
-		},
-		deleteCliente: function deleteCliente(cliente) {
-			var _this11 = this;
-
-			var urlDelete = 'persona/' + cliente.id;
-			axios.delete(urlDelete).then(function (response) {
-				_this11.getCliente();
-				toastr.success('Cliente eliminado correctamente');
-			});
-		},
-		createCliente: function createCliente() {
-			var _this12 = this;
-
-			var url = 'persona';
-			axios.post(url, {
-				nombre: this.nombre,
-				cedula: this.cedula,
-				email: this.email,
-				celular: this.celular,
-				direccion: this.direccion,
-				estado: this.estado,
-				cobrador_id: $(".cobrador_id").val(),
-				role: 'cliente'
-
-			}).then(function (response) {
-
-				_this12.getCliente();
-				_this12.nombre = '';
-				_this12.cedula = '';
-				_this12.email = '';
-				_this12.celular = '';
-				_this12.direccion = '';
-				_this12.cobrador_id = '';
-				_this12.estado = '';
-				_this12.errors = [];
-				$('#create').modal('hide');
-				$('#error').empty();
-				toastr.success('cliente Guardado Correctamente');
-			}).catch(function (error) {
-				_this12.errors = error.response.data;
-			});
-		}
-
-	}
-
-});
-
-var gasto = new Vue({
-	el: '#gasto',
-	created: function created() {
-		this.getGasto();
-	},
-	data: {
-		gastos: [],
-		detalle: '',
-		valor: '',
-		errors: [],
-		fillgasto: {
-			'detalle': '',
-			'valor': '',
-			'id': ''
-		}
-	},
-	methods: {
-		getGasto: function getGasto() {
-			var _this13 = this;
-
-			var url = 'gasto';
-			axios.get(url).then(function (response) {
-				_this13.gastos = response.data;
-			});
-		},
-		editGasto: function editGasto(gasto) {
-
-			this.fillgasto.detalle = gasto.detalle;
-			this.fillgasto.valor = gasto.valor;
-			this.fillgasto.id = gasto.id;
-
-			$('#edit').modal('show');
-			$('#error').empty();
-		},
-		updateGasto: function updateGasto(id) {
-			var _this14 = this;
-
-			var url = 'gasto/' + id;
-			axios.put(url, this.fillgasto).then(function (response) {
-
-				_this14.getGasto();
-				fillgasto = {
-					'id': '',
-					'valor': '',
-					'detalle': ''
-
-				};
-				_this14.errors = [];
-				$('#edit').modal('hide');
-				toastr.success('cliente Actualizada Correctamente');
-			}).catch(function (error) {
-				_this14.errors = error.response.data;
-			});
-		},
-		deleteGasto: function deleteGasto(gasto) {
-			var _this15 = this;
-
-			var urlDelete = 'gasto/' + gasto.id;
-			axios.delete(urlDelete).then(function (response) {
-				_this15.getGasto();
-				toastr.success('Gasto eliminado eliminado correctamente');
-			});
-		},
-		createGasto: function createGasto() {
-			var _this16 = this;
-
-			var url = 'gasto';
-			axios.post(url, {
-				valor: this.valor,
-				detalle: this.detalle
-
-			}).then(function (response) {
-
-				_this16.getGasto();
-				_this16.valor = '';
-				_this16.detalle = '';
-
-				_this16.errors = [];
-				$('#create').modal('hide');
-				$('#error').empty();
-				toastr.success('Gasto Guardado Correctamente');
-			}).catch(function (error) {
-				_this16.errors = error.response.data;
-			});
-		}
-
-	}
-
-});
-
-var prestamo = new Vue({
-	el: '#prestamos',
-	created: function created() {
-		this.getPrestamo();
-	},
-	data: (_data = {
-		prestamos: [],
-		articulo: '',
-		valor: '',
-		cartera_id: '',
-		cobrador_id: '',
-		cliente_id: '',
-		estado: ''
-	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamos', {
-		'detalle': '',
-		'valor': '',
-		'id': ''
-	}), _data),
-	methods: {
-		getPrestamo: function getPrestamo() {
-			var _this17 = this;
-
-			var url = 'prestamo';
-			axios.get(url).then(function (response) {
-				_this17.prestamos = response.data;
-			});
-		},
-		editPrestamo: function editPrestamo(prestamo) {
-
-			this.fillprestamos.detalle = prestamos.detalle;
-			this.fillprestamos.valor = prestamos.valor;
-			this.fillprestamos.id = prestamos.id;
-
-			$('#edit').modal('show');
-			$('#error').empty();
-		},
-		updatePrestamo: function updatePrestamo(id) {
-			var _this18 = this;
-
-			var url = 'prestamo/' + id;
-			axios.put(url, this.fillgasto).then(function (response) {
-
-				_this18.getPrestamo();
-				fillprestamos = {
-					'id': '',
-					'valor': '',
-					'detalle': ''
-
-				};
-				_this18.errors = [];
-				$('#edit').modal('hide');
-				toastr.success('cliente Actualizada Correctamente');
-			}).catch(function (error) {
-				_this18.errors = error.response.data;
-			});
-		},
-		deletePrestamo: function deletePrestamo(prestamo) {
-			var _this19 = this;
-
-			var urlDelete = 'prestamo/' + prestamo.id;
-			axios.delete(urlDelete).then(function (response) {
-				_this19.getPrestamo();
-				toastr.success('Prestamo eliminado eliminado correctamente');
-			});
-		},
-		createPrestamo: function createPrestamo() {
-			var _this20 = this;
-
-			var url = 'prestamo';
-
-			axios.post(url, {
-				valor: this.valor,
-				articulo: this.articulo,
-				valor_cuota: this.valor_cuota,
-				valor_seguro: this.valor_seguro,
-				plazo: this.plazo,
-				estado: this.estado,
-				cliente_id: $(".cliente_id").val(),
-				cartera_id: $(".cartera_id").val(),
-				cobrador_id: $(".cobrador_id").val(),
-				pago_domingos: this.pago_domingos
-
-			}).then(function (response) {
-
-				_this20.getPrestamo();
-				_this20.valor = '';
-				_this20.articulo = '', _this20.valor_cuota = '', _this20.valor_seguro = '', _this20.plazo = '', _this20.estado = '', _this20.cliente_id = '', _this20.clarteraid = '', _this20.cobrador_id = '', _this20.pago_domingos = '', _this20.errors = [];
-				$('#create').modal('hide');
-				$('#error').empty();
-				toastr.success('Prestamo Guardado Correctamente');
-			}).catch(function (error) {
-				_this20.errors = error.response.data;
-			});
-		}
-
-	}
-
-});
-
-var cobro = new Vue({
-	el: '#cobros',
-	created: function created() {
-		this.getPrestamo();
-	},
-	data: {
-		prestamos: [],
-		articulo: '',
-		valor: '',
-		errors: [],
-		fillprestamos: {
-			'detalle': '',
-			'valor': '',
-			'id': ''
-		}
-	},
-	methods: {
-		getPrestamo: function getPrestamo() {
-			var _this21 = this;
-
-			var url = 'prestamo';
-			axios.get(url).then(function (response) {
-				_this21.prestamos = response.data;
-			});
-		},
-		editPrestamo: function editPrestamo(prestamo) {
-
-			this.fillprestamos.detalle = prestamos.detalle;
-			this.fillprestamos.valor = prestamos.valor;
-			this.fillprestamos.id = prestamos.id;
-
-			$('#edit').modal('show');
-			$('#error').empty();
-		},
-		updatePrestamo: function updatePrestamo(id) {
-			var _this22 = this;
-
-			var url = 'prestamo/' + id;
-			axios.put(url, this.fillgasto).then(function (response) {
-
-				_this22.getPrestamo();
-				fillprestamos = {
-					'id': '',
-					'valor': '',
-					'detalle': ''
-
-				};
-				_this22.errors = [];
-				$('#edit').modal('hide');
-				toastr.success('cliente Actualizada Correctamente');
-			}).catch(function (error) {
-				_this22.errors = error.response.data;
-			});
-		},
-		deletePrestamo: function deletePrestamo(prestamo) {
-			var _this23 = this;
-
-			var urlDelete = 'prestamo/' + prestamo.id;
-			axios.delete(urlDelete).then(function (response) {
-				_this23.getPrestamo();
-				toastr.success('Prestamo eliminado eliminado correctamente');
-			});
-		},
-		createPrestamo: function createPrestamo() {
-			var _this24 = this;
-
-			var url = 'prestamo';
-			axios.post(url, {
-				valor: this.valor,
-				detalle: this.detalle
-
-			}).then(function (response) {
-
-				_this24.getPrestamo();
-				_this24.valor = '';
-				_this24.detalle = '';
-
-				_this24.errors = [];
-				$('#create').modal('hide');
-				$('#error').empty();
-				toastr.success('Prestamo Guardado Correctamente');
-			}).catch(function (error) {
-				_this24.errors = error.response.data;
-			});
-		}
-
-	}
-
-});
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
-var bind = __webpack_require__(5);
+var bind = __webpack_require__(3);
 var isBuffer = __webpack_require__(18);
 
 /*global toString:true*/
@@ -995,7 +374,7 @@ module.exports = {
 
 
 /***/ }),
-/* 3 */
+/* 1 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1022,13 +401,13 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 var normalizeHeaderName = __webpack_require__(20);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -1045,10 +424,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(7);
+    adapter = __webpack_require__(5);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(7);
+    adapter = __webpack_require__(5);
   }
   return adapter;
 }
@@ -1119,10 +498,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1140,7 +519,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1330,18 +709,18 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 var settle = __webpack_require__(21);
 var buildURL = __webpack_require__(23);
 var parseHeaders = __webpack_require__(24);
 var isURLSameOrigin = __webpack_require__(25);
-var createError = __webpack_require__(8);
+var createError = __webpack_require__(6);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(26);
 
 module.exports = function xhrAdapter(config) {
@@ -1517,7 +896,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1542,7 +921,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1554,7 +933,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1578,6 +957,669 @@ Cancel.prototype.__CANCEL__ = true;
 
 module.exports = Cancel;
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(10);
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _fillprestamo, _data;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+__webpack_require__(11);
+
+window.Vue = __webpack_require__(35);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+Vue.component('example-component', __webpack_require__(38));
+//Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
+
+var cartera = new Vue({
+	el: '#cartera',
+	created: function created() {
+		this.getCartera();
+	},
+	data: {
+		carteras: [],
+		newCartera: '',
+		errors: [],
+		fillCartera: {
+			'id': '',
+			'nombre': ''
+		}
+	},
+
+	methods: {
+		getCartera: function getCartera() {
+			var _this = this;
+
+			var urlCartera = 'cartera';
+			axios.get(urlCartera).then(function (response) {
+				_this.carteras = response.data;
+			});
+		},
+		editCartera: function editCartera(cartera) {
+
+			this.fillCartera.id = cartera.id;
+			this.fillCartera.nombre = cartera.nombre;
+			$('#edit').modal('show');
+		},
+		UpdateCartera: function UpdateCartera(id) {
+			var _this2 = this;
+
+			var url = 'cartera/' + id;
+			axios.put(url, this.fillCartera).then(function (response) {
+
+				_this2.getCartera();
+				_this2.fillCartera = { 'id': '', 'nombre': '' };
+				_this2.errors = [];
+
+				$('#edit').modal('hide');
+				toastr.success('Cartera Actualizada Correctamente');
+			}).catch(function (error) {
+				_this2.errors = error.response.data;
+			});
+		},
+		deleteCartera: function deleteCartera(cartera) {
+			var _this3 = this;
+
+			var urlDelete = 'cartera/' + cartera.id;
+			axios.delete(urlDelete).then(function (response) {
+				_this3.getCartera();
+				toastr.success('Eliminado correctamente');
+			});
+		},
+		createCartera: function createCartera() {
+			var _this4 = this;
+
+			var urlCreateCartera = 'cartera';
+			axios.post(urlCreateCartera, {
+
+				nombre: this.newCartera
+
+			}).then(function (response) {
+
+				_this4.getCartera();
+				_this4.newCartera = '';
+				_this4.errors = [];
+				$('#create').modal('hide');
+				toastr.success('Guardado Correctamente');
+			}).catch(function (error) {
+				_this4.errors = error.response.data;
+			});
+		}
+	}
+
+});
+
+var cobrador = new Vue({
+	el: '#cobrador',
+	created: function created() {
+		this.getCobrador();
+	},
+	data: {
+		cobradores: [],
+		id: '',
+		nombre: '',
+		cedula: '',
+		email: '',
+		celular: '',
+		direccion: '',
+		role: '',
+		errors: [],
+		fillCobrador: {
+			'id': '',
+			'nombre': '',
+			'cedula': '',
+			'celular': '',
+			'direccion': '',
+			'email': '',
+			carteras: []
+
+		}
+	},
+
+	methods: {
+		getCobrador: function getCobrador() {
+			var _this5 = this;
+
+			var urlCobrador = 'persona/cobrador';
+			axios.get(urlCobrador).then(function (response) {
+				_this5.cobradores = response.data;
+			});
+		},
+		editCobrador: function editCobrador(cobrador) {
+
+			this.fillCobrador.id = cobrador.id;
+			this.fillCobrador.nombre = cobrador.nombre;
+			this.fillCobrador.cedula = cobrador.cedula;
+			this.fillCobrador.celular = cobrador.celular;
+			this.fillCobrador.direccion = cobrador.direccion;
+			this.fillCobrador.email = cobrador.email;
+			this.fillCobrador.carteras = [$(".carteras").val()];
+			$('#edit').modal('show');
+			$('#error').empty();
+		},
+
+		UpdateCobrador: function UpdateCobrador(id) {
+			var _this6 = this;
+
+			var url = 'persona/' + id;
+			axios.put(url, this.fillCobrador).then(function (response) {
+
+				_this6.getCobrador();
+				_this6.fillCobrador = { 'id': '', 'nombre': '' };
+				_this6.errors = [];
+				$('#edit').modal('hide');
+				toastr.success('cobrador Actualizada Correctamente');
+			}).catch(function (error) {
+				_this6.errors = error.response.data;
+			});
+		},
+		deleteCobrador: function deleteCobrador(id) {
+			var _this7 = this;
+
+			var urlDelete = 'persona/' + id;
+			axios.delete(urlDelete).then(function (response) {
+				_this7.getCobrador();
+				toastr.success('Cobrador eliminado correctamente');
+			});
+		},
+		createCobrador: function createCobrador() {
+			var _this8 = this;
+
+			var url = 'persona';
+			axios.post(url, {
+
+				nombre: this.nombre,
+				cedula: this.cedula,
+				email: this.email,
+				celular: this.celular,
+				direccion: this.direccion,
+				role: 'cobrador'
+
+			}).then(function (response) {
+
+				_this8.getCobrador();
+				_this8.nombre = '';
+				_this8.cedula = '';
+				_this8.email = '';
+				_this8.celular = '';
+				_this8.direccion = '';
+				_this8.errors = [];
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('Cobrador Guardado Correctamente');
+			}).catch(function (error) {
+				_this8.errors = error.response;
+			});
+		}
+
+	}
+
+});
+
+var cliente = new Vue({
+	el: '#cliente',
+	created: function created() {
+		this.getCliente();
+	},
+	data: {
+		clientes: [],
+		nombre: '',
+		cedula: '',
+		email: '',
+		celular: '',
+		role: '',
+		direccion: '',
+		cobrador_id: '',
+		estado: '',
+		errors: [],
+		fillcliente: {
+			'id': '',
+			'nombre': '',
+			'cedula': '',
+			'celular': '',
+			'direccion': '',
+			'email': '',
+			'cobrador_id': '',
+			'estado': ''
+
+		}
+	},
+	methods: {
+		getCliente: function getCliente() {
+			var _this9 = this;
+
+			var urlcliente = '/persona/cliente';
+			axios.get(urlcliente).then(function (response) {
+				_this9.clientes = response.data;
+			});
+		},
+		editCliente: function editCliente(cliente) {
+
+			this.fillcliente.id = cliente.id;
+			this.fillcliente.nombre = cliente.nombre;
+			this.fillcliente.cedula = cliente.cedula;
+			this.fillcliente.celular = cliente.celular;
+			this.fillcliente.direccion = cliente.direccion;
+			this.fillcliente.email = cliente.email;
+			this.fillcliente.estado = cliente.estado;
+
+			$(".cobrador_id").val(cliente.cobrador_id);
+			this.fillcliente.cobrador_id = cliente.cobrador_id;
+			$('#edit').modal('show');
+			$('#error').empty();
+		},
+		updateCliente: function updateCliente(id) {
+			var _this10 = this;
+
+			this.fillcliente.cobrador_id = $(".cobrador_id").val();
+			$('#edit').modal('show');
+			var url = 'persona/' + id;
+			axios.put(url, this.fillcliente).then(function (response) {
+
+				_this10.getCliente();
+				fillcliente = {
+					'id': '',
+					'nombre': '',
+					'cedula': '',
+					'celular': '',
+					'direccion': '',
+					'email': '',
+					'cobrador_id': '',
+					'estado': ''
+
+				};
+				_this10.errors = [];
+				$('#edit').modal('hide');
+				toastr.success('cliente Actualizada Correctamente');
+			}).catch(function (error) {
+				_this10.errors = error.response.data;
+			});
+		},
+		deleteCliente: function deleteCliente(cliente) {
+			var _this11 = this;
+
+			var urlDelete = 'persona/' + cliente.id;
+			axios.delete(urlDelete).then(function (response) {
+				_this11.getCliente();
+				toastr.success('Cliente eliminado correctamente');
+			});
+		},
+		createCliente: function createCliente() {
+			var _this12 = this;
+
+			var url = 'persona';
+			axios.post(url, {
+				nombre: this.nombre,
+				cedula: this.cedula,
+				email: this.email,
+				celular: this.celular,
+				direccion: this.direccion,
+				estado: this.estado,
+				cobrador_id: $(".cobrador_id").val(),
+				role: 'cliente'
+
+			}).then(function (response) {
+
+				_this12.getCliente();
+				_this12.nombre = '';
+				_this12.cedula = '';
+				_this12.email = '';
+				_this12.celular = '';
+				_this12.direccion = '';
+				_this12.cobrador_id = '';
+				_this12.estado = '';
+				_this12.errors = [];
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('cliente Guardado Correctamente');
+			}).catch(function (error) {
+				_this12.errors = error.response.data;
+			});
+		}
+
+	}
+
+});
+
+var gasto = new Vue({
+	el: '#gasto',
+	created: function created() {
+		this.getGasto();
+	},
+	data: {
+		gastos: [],
+		detalle: '',
+		valor: '',
+		cartera_id: '',
+		errors: [],
+		fillgasto: {
+			'detalle': '',
+			'valor': '',
+			'id': '',
+			'cartera_id': ''
+		}
+	},
+	methods: {
+		getGasto: function getGasto() {
+			var _this13 = this;
+
+			var url = 'gasto';
+			axios.get(url).then(function (response) {
+				_this13.gastos = response.data;
+			});
+		},
+		editGasto: function editGasto(gasto) {
+
+			this.fillgasto.detalle = gasto.detalle;
+			this.fillgasto.valor = gasto.valor;
+			this.fillgasto.id = gasto.id;
+			this.fillgasto.cartera_id = gasto.cartera_id;
+
+			$('#edit').modal('show');
+			$('#error').empty();
+		},
+		updateGasto: function updateGasto(id) {
+			var _this14 = this;
+
+			var url = 'gasto/' + id;
+			axios.put(url, this.fillgasto).then(function (response) {
+
+				_this14.getGasto();
+				fillgasto = {
+					'id': '',
+					'valor': '',
+					'detalle': '',
+					cartera_id: ''
+
+				};
+				_this14.errors = [];
+				$('#edit').modal('hide');
+				toastr.success('cliente Actualizada Correctamente');
+			}).catch(function (error) {
+				_this14.errors = error.response.data;
+			});
+		},
+		deleteGasto: function deleteGasto(gasto) {
+			var _this15 = this;
+
+			var urlDelete = 'gasto/' + gasto.id;
+			axios.delete(urlDelete).then(function (response) {
+				_this15.getGasto();
+				toastr.success('Gasto eliminado eliminado correctamente');
+			});
+		},
+		createGasto: function createGasto() {
+			var _this16 = this;
+
+			var url = 'gasto';
+			axios.post(url, {
+				valor: this.valor,
+				detalle: this.detalle,
+				cartera_id: $(".cartera_id").val()
+
+			}).then(function (response) {
+
+				_this16.getGasto();
+				_this16.valor = '';
+				_this16.detalle = '';
+				_this16.cartera_id = '';
+
+				_this16.errors = [];
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('Gasto Guardado Correctamente');
+			}).catch(function (error) {
+				_this16.errors = error.response.data;
+			});
+		}
+
+	}
+
+});
+var interes;
+var cuota;
+
+var prestamo = new Vue({
+	el: '#prestamos',
+	created: function created() {
+		this.getPrestamo();
+	},
+	data: (_data = {
+		prestamos: [],
+		articulo: '',
+		valor: '',
+		cartera_id: '',
+		cobrador_id: '',
+		cliente_id: '',
+		estado: ''
+	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
+		'articulo': '',
+		'valor': '',
+		'cartera_id': '',
+		'cobrador_id': '',
+		'cliente_id': '',
+		'estado': ''
+	}, _defineProperty(_fillprestamo, 'valor', ''), _defineProperty(_fillprestamo, 'valor_seguro', ''), _defineProperty(_fillprestamo, 'valor_cuota', ''), _defineProperty(_fillprestamo, 'plazo', ''), _defineProperty(_fillprestamo, 'pago_domingos', ''), _defineProperty(_fillprestamo, 'id', ''), _fillprestamo)), _data),
+	methods: {
+		getPrestamo: function getPrestamo() {
+			var _this17 = this;
+
+			var url = 'prestamo';
+			axios.get(url).then(function (response) {
+				_this17.prestamos = response.data;
+			});
+		},
+		editPrestamo: function editPrestamo(prestamo) {
+
+			this.fillprestamo.articulo = prestamo.articulo;
+			this.fillprestamo.valor = prestamo.valor;
+			this.fillprestamo.estado = prestamo.estado;
+			this.fillprestamo.valor_cuota = prestamo.valor_cuota;
+			this.fillprestamo.valor_seguro = prestamo.valor_seguro;
+			this.fillprestamo.plazo = prestamo.plazo;
+			this.fillprestamo.pago_domingos = prestamo.pago_domingos;
+			this.fillprestamo.cartera_id = prestamo.cartera_id;
+			this.fillprestamo.cliente_id = prestamo.cliente_id;
+			this.fillprestamo.cobrador_id = prestamo.cobrador_id;
+			this.fillprestamo.id = prestamo.id;
+
+			$('#edit').modal('show');
+			$('#error').empty();
+			$(".error").empty();
+		},
+		updatePrestamo: function updatePrestamo(id) {
+			var _this18 = this;
+
+			var url = 'prestamo/' + id;
+			axios.put(url, this.fillprestamo).then(function (response) {
+				var _fillprestamo2;
+
+				_this18.getPrestamo();
+				fillprestamo = (_fillprestamo2 = {
+					'articulo': '',
+					'valor': '',
+					'cartera_id': '',
+					'cobrador_id': '',
+					'cliente_id': '',
+					'estado': ''
+				}, _defineProperty(_fillprestamo2, 'valor', ''), _defineProperty(_fillprestamo2, 'valor_seguro', ''), _defineProperty(_fillprestamo2, 'valor_cuota', ''), _defineProperty(_fillprestamo2, 'plazo', ''), _defineProperty(_fillprestamo2, 'pago_domingos', ''), _fillprestamo2);
+				_this18.errors = [];
+				$(".error").empty();
+				$('#edit').modal('hide');
+				toastr.success('Prestamo Actualizada Correctamente');
+			}).catch(function (error) {
+				_this18.errors = error.response.data;
+			});
+		},
+		deletePrestamo: function deletePrestamo(prestamo) {
+			var _this19 = this;
+
+			var urlDelete = 'prestamo/' + prestamo.id;
+
+			axios.delete(urlDelete).then(function (response) {
+				_this19.getPrestamo();
+				toastr.success('Prestamo eliminado eliminado correctamente');
+			});
+		},
+		createPrestamo: function createPrestamo() {
+			var _this20 = this;
+
+			var url = 'prestamo';
+
+			axios.post(url, {
+				valor: this.valor,
+				articulo: this.articulo,
+				valor_cuota: this.valor_cuota,
+				valor_seguro: this.valor_seguro,
+				plazo: this.plazo,
+				estado: $(".estado").val(),
+				cliente_id: $(".cliente_id").val(),
+				cartera_id: $(".cartera_id").val(),
+				cobrador_id: $(".cobrador_id").val(),
+				pago_domingos: this.pago_domingos
+
+			}).then(function (response) {
+
+				_this20.getPrestamo();
+				_this20.valor = '';
+				_this20.articulo = '', _this20.valor_cuota = '', _this20.valor_seguro = '', _this20.plazo = '', _this20.estado = '', _this20.cliente_id = '', _this20.clarteraid = '', _this20.cobrador_id = '', _this20.pago_domingos = '', _this20.saldo = '', _this20.errors = [];
+				$('#create').modal('hide');
+				$('#error').empty();
+				toastr.success('Prestamo Guardado Correctamente');
+			}).catch(function (error) {
+				_this20.errors = error.response.data;
+			});
+		},
+		calcularInteres: function calcularInteres() {
+
+			interes = this.valor * 20 / 100;
+			interes = parseInt(interes) + parseInt(this.valor);
+			this.valor = interes;
+		},
+		calcularCuota: function calcularCuota() {
+
+			cuota = interes / this.plazo;
+			this.pago_domingos = cuota * 4;
+			this.valor_cuota = cuota;
+			this.valor_seguro = cuota;
+		}
+	}
+
+});
+
+var cobro = new Vue({
+	el: '#cobros',
+
+	data: {
+		prestamos: [],
+		prestamo_id: '',
+		valor: '',
+		efectivo_diario: 0,
+		errors: [],
+		orden: { orden: '' },
+		id_prestamo: '',
+		cobro: { valor: 0, observacines: '' }
+	},
+	methods: {
+		getPrestamo: function getPrestamo() {
+			var _this21 = this;
+
+			var url = 'cobro';
+			axios.get(url).then(function (response) {
+				_this21.prestamos = response.data;
+			});
+		},
+		editCobro: function editCobro(cobro) {
+
+			this.cobro.valor = cobro.valor;
+			this.cobro.observacines = cobro.observacines;
+			this.id_cobro = cobro.id;
+
+			$('#edit').modal('show');
+			$('#error').empty();
+		},
+		editPrestamo: function editPrestamo(prestamo) {
+
+			this.orden.orden = prestamo.orden;
+			this.id_prestamo = prestamo.id;
+
+			$('#edit').modal('show');
+			$('#error').empty();
+		},
+		ordenar: function ordenar(id) {
+			var _this22 = this;
+
+			var url = 'prestamo/' + id;
+			axios.put(url, this.orden).then(function (response) {
+
+				orden = { orden: '' };
+
+				_this22.errors = [];
+				$('#edit').modal('hide');
+				toastr.success('Prestamo actualizado Correctamente');
+			}).catch(function (error) {
+				_this22.errors = error.response.data;
+			});
+		},
+
+		PagarCuota: function PagarCuota(prestamo) {
+			var _this23 = this;
+
+			var url = 'cobro';
+			var valor = "#" + prestamo;
+			valor_cuota = $(valor).val();
+			this.efectivo_diario = parseInt(this.efectivo_diario) + parseInt(valor_cuota);
+			axios.post(url, {
+				valor: valor_cuota,
+				prestamo_id: prestamo
+
+			}).then(function (response) {
+
+				//this.getPrestamo();
+				_this23.valor = '';
+				_this23.prestamo_id = '';
+
+				_this23.errors = [];
+
+				$('#error').empty();
+				toastr.success('Cobro  Guardado Correctamente');
+			}).catch(function (error) {
+				_this23.errors = error.response.data;
+			});
+		},
+		deleteCobro: function deleteCobro(id) {
+
+			var urlDelete = '/cobro/' + id;
+			axios.delete(urlDelete).then(function (response) {
+
+				toastr.success('Movimiento eliminado eliminado correctamente');
+			});
+		}
+
+	}
+
+});
 
 /***/ }),
 /* 11 */
@@ -18729,7 +18771,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(13)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(13)(module)))
 
 /***/ }),
 /* 13 */
@@ -31415,10 +31457,10 @@ module.exports = __webpack_require__(17);
 "use strict";
 
 
-var utils = __webpack_require__(2);
-var bind = __webpack_require__(5);
+var utils = __webpack_require__(0);
+var bind = __webpack_require__(3);
 var Axios = __webpack_require__(19);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(2);
 
 /**
  * Create an instance of Axios
@@ -31451,9 +31493,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(10);
+axios.Cancel = __webpack_require__(8);
 axios.CancelToken = __webpack_require__(33);
-axios.isCancel = __webpack_require__(9);
+axios.isCancel = __webpack_require__(7);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -31501,8 +31543,8 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(4);
-var utils = __webpack_require__(2);
+var defaults = __webpack_require__(2);
+var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(28);
 var dispatchRequest = __webpack_require__(29);
 
@@ -31587,7 +31629,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -31606,7 +31648,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(8);
+var createError = __webpack_require__(6);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -31667,7 +31709,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -31742,7 +31784,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -31802,7 +31844,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -31920,7 +31962,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -31980,7 +32022,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -32039,10 +32081,10 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 var transformData = __webpack_require__(30);
-var isCancel = __webpack_require__(9);
-var defaults = __webpack_require__(4);
+var isCancel = __webpack_require__(7);
+var defaults = __webpack_require__(2);
 var isAbsoluteURL = __webpack_require__(31);
 var combineURLs = __webpack_require__(32);
 
@@ -32132,7 +32174,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(2);
+var utils = __webpack_require__(0);
 
 /**
  * Transform the data for a request or a response
@@ -32201,7 +32243,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(10);
+var Cancel = __webpack_require__(8);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -43107,7 +43149,7 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(36).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(36).setImmediate))
 
 /***/ }),
 /* 36 */
@@ -43359,7 +43401,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
 /* 38 */

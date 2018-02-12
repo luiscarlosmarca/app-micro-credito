@@ -3,6 +3,7 @@
 namespace credito\Http\Controllers;
 
 use credito\Cobro;
+use credito\Prestamo;
 use Illuminate\Http\Request;
 
 class CobroController extends Controller
@@ -12,9 +13,13 @@ class CobroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $prestamo=Prestamo::findOrFail($id);
+
+        return $prestamo;
+       
+       // return view('admin.cursos.edit',compact('cursos'));
     }
 
     /**
@@ -23,8 +28,9 @@ class CobroController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $prestamos=Prestamo::orderby('ASC','ID')->get();
+        return view('cobros',compact('prestamos'));
     }
 
     /**
@@ -35,7 +41,19 @@ class CobroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            
+            'valor'=>['integer','required']
+            
+                      
+        ]);
+
+        $cobro=Cobro::create($request->all()); 
+
+        $prestamo=Prestamo::find($request->prestamo_id);
+
+
+        return $prestamo;
     }
 
     /**
@@ -44,9 +62,16 @@ class CobroController extends Controller
      * @param  \credito\Cobro  $cobro
      * @return \Illuminate\Http\Response
      */
-    public function show(Cobro $cobro)
+    public function movimientos($id)
     {
-        //
+       //$prestamo=Prestamo::findOrFail($id);
+
+       $cobros=Cobro::where('prestamo_id',$id)->get();
+       
+       //return response($cobros);
+
+       return view('movimientos');
+       
     }
 
     /**
@@ -78,8 +103,11 @@ class CobroController extends Controller
      * @param  \credito\Cobro  $cobro
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cobro $cobro)
-    {
-        //
+    public function destroy($id)
+    {   
+
+        $cobro=Cobro::findOrFail($id);
+        $cobro->delete(); 
+        return $cobro;
     }
 }

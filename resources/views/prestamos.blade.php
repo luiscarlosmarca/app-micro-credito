@@ -1,4 +1,4 @@
-ç@extends('layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <div  id="prestamos"  class="box-header with-border">
@@ -30,7 +30,7 @@
             </thead>
             <tbody>
               <tr v-for="prestamo in prestamos">
-                <td width="10px">@{{prestamo.cartera_id}}</td>
+                <td width="10px">@{{prestamo.id}}</td>
                 <td width="10px">@{{prestamo.cartera_id}}</td>
                 <td width="10px">@{{prestamo.cobrador_id}}</td>
                 <td>@{{prestamo.cliente_id}}</td>
@@ -50,7 +50,7 @@
           </table>
         
       @include('prestamos.create')
-      {{--      @include('cobradores.edit') --}}
+      @include('prestamos.edit') 
             
           
         </div>
