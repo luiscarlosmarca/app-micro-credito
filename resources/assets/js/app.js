@@ -595,7 +595,7 @@ const cobro = new Vue({
 	},	
 	methods: {
 		getPrestamo: function() {
-			var url = 'cobro';
+			var url = '/cobro';
 			axios.get(url).then(response => {
 				this.prestamos = response.data
 			});
@@ -620,7 +620,7 @@ const cobro = new Vue({
 
 		},
 		ordenar:function(id) {
-			var url = 'prestamo/' + id;
+			var url = '/prestamo/' + id;
 			axios.put(url,this.orden).then(response=>{
 
 				orden={orden:''}
@@ -636,7 +636,7 @@ const cobro = new Vue({
 	
 		PagarCuota:function(prestamo){
 
-			var url='cobro'
+			var url='/cobro'
 			var valor="#"+prestamo;
 			valor_cuota=$(valor).val();
 			this.efectivo_diario=parseInt(this.efectivo_diario)+parseInt(valor_cuota);
@@ -651,7 +651,7 @@ const cobro = new Vue({
 				this.valor='';
 				this.prestamo_id='';
 			
-				this.errors=[]; 
+				this.errors=[];  
 				
 				$('#error').empty();
 				toastr.success('Cobro  Guardado Correctamente'); 
