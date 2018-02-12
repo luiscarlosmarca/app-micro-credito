@@ -1,5 +1,5 @@
-<form method="POST">
-  <div class="modal fade" id="edit" role="dialog" > 
+<form method="POST" v-on:submit.prevent="updateCobro(fillcobro.id)">
+  <div class="modal fade" id="edit" role="dialog"> 
     
     <div class="modal-dialog">
       <div class="modal-content">
@@ -7,15 +7,15 @@
             <button type="button" class="close" data-dismiss="modal">
                <span> &times;</span>
             </button>
-            <h4> Actualizar gastos </h4>
+            <h4> Actualizar Movimiento </h4>
        </div>
        <div class="modal-body">
           
-          <label for="cartera">Valor  </label>
-          <input type="text" name="valor" class="form-control">
+          <label for="cobro">Valor  </label>
+          <input type="text" name="valor" class="form-control" v-model="fillcobro.valor">
 
-          <label for="persona">Detalles </label>
-          <textarea COLS=20 ROWS=10 name="detalle" class="form-control"></textarea> 
+          <label for="cobro">Observaciones </label>
+          <textarea COLS=20 ROWS=10 name="observaciones" v-model="fillcobro.observaciones" class="form-control"></textarea> 
           
          
 

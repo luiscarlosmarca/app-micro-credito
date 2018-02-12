@@ -42,7 +42,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="home" class="logo">
+    <a href="/home" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -99,7 +99,7 @@
         <li class="header">Menu principal</li>
       
         <li class="treeview">
-          <a href="#">
+          <a href="/home">
             <i class="fa fa-files-o"></i>
             <span>Administración</span>
             <span class="pull-right-container">
@@ -107,10 +107,10 @@
             </span>
           </a>
           
-            <li><a href="carteras"><i class="fa fa-circle-o"></i> Cartera</a></li>
-            <li><a href="cobradores"><i class="fa fa-circle-o"></i> Cobradores</a></li>
-            <li><a href="clientes"><i class="fa fa-circle-o"></i> Clientes</a></li>
-            <li><a href="gastos"><i class="fa fa-circle-o"></i> Gastos</a></li>
+            <li><a href="/carteras"><i class="fa fa-circle-o"></i> Cartera</a></li>
+            <li><a href="/cobradores"><i class="fa fa-circle-o"></i> Cobradores</a></li>
+            <li><a href="/clientes"><i class="fa fa-circle-o"></i> Clientes</a></li>
+            <li><a href="/gastos"><i class="fa fa-circle-o"></i> Gastos</a></li>
        
         </li>
         <li>

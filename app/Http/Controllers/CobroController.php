@@ -92,9 +92,17 @@ class CobroController extends Controller
      * @param  \credito\Cobro  $cobro
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cobro $cobro)
+    public function update(Request $request, $id)
     {
-        //
+         $this->validate($request,[
+
+            'valor' => 'integer '
+
+        ]);
+
+        Cobro::find($id)->update($request->all());
+        return;
+
     }
 
     /**

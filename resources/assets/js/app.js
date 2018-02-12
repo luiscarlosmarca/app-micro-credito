@@ -591,7 +591,7 @@ const cobro = new Vue({
 		errors:[],
 		orden:{orden:''},
 		id_prestamo:'',
-		cobro:{valor:0,observacines:''}
+		fillcobro:{valor:0,observacines:'',id:0}
 	},	
 	methods: {
 		getPrestamo: function() {
@@ -602,14 +602,37 @@ const cobro = new Vue({
 		},
 		editCobro: function(cobro) {
 	
-			this.cobro.valor=cobro.valor;
-			this.cobro.observacines=cobro.observacines;
-			this.id_cobro=cobro.id;
+			this.fillcobro.valor=cobro.valor;
+			this.fillcobro.observacines=cobro.observacines;
+			this.fillcobro.id=cobro.id;
 			
 			$('#edit').modal('show');
 			$('#error').empty();
 
 		},
+		updateCobro:function(id) {
+			
+			var url = '/cobro/' + id;
+			axios.put(url,this.fillcobro).then(response=>{
+
+				this.getPrestamo();
+				fillcobro={
+					'observacines':'',
+					'valor':'',
+					'id':'',
+					
+					
+				};
+			this.errors=[];
+			$(".error").empty();
+			$('#edit').modal('hide');
+			toastr.success('Movimiento Actualizado Correctamente');
+			}).catch(error=>{
+				this.errors = error.response.data;
+			});
+
+		 },
+
 		editPrestamo: function(prestamo) {
 	
 			this.orden.orden=prestamo.orden;
@@ -661,7 +684,7 @@ const cobro = new Vue({
 
 		},
 		deleteCobro:function(id) {
-		home
+			
 			var urlDelete ='/cobro/'+id
 			axios.delete(urlDelete).then(response=>{
 				
