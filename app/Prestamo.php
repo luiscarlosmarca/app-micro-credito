@@ -17,6 +17,10 @@ protected $fillable =['cartera_id','cliente_id','cobrador_id','articulo','estado
     	return $this->belongsTo('credito\Persona','cobrador_id');
     }
 
+    public function mi_cartera(){
+        return $this->belongsTo('credito\Cartera','cartera_id');
+    }
+
     public function cobros(){
     	return $this->hasMany('credito\Cobro');
     }
@@ -34,4 +38,25 @@ protected $fillable =['cartera_id','cliente_id','cobrador_id','articulo','estado
     	
     // 	return $saldo;
     // }
+
+
+
+    public function scopeCartera($query, $cartera) {
+        
+      if(trim($cartera)!=""){
+
+        $query->where('cartera_id',$cartera); 
+      }
+
+    }
+
+
+    public static function filter($cartera){
+    
+    return Prestamo::cartera($cartera)
+ 
+        ->orderBy('orden','ASC')
+        ->paginate();
+    }
+
 }

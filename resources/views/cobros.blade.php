@@ -4,7 +4,8 @@
 <div id="cobros"  class="box-header with-border">
    
     <h1 class="box-title"> Cobros</h3>
-           
+    ->Efectivo diario @{{efectivo_diario}}
+    @include('cobros.search') 
     <div class="box-body" style="margin-left: 10px;margin-right: 10px;">
         <div class="row">
             
@@ -14,7 +15,7 @@
           <table class="table table-hover table-striped table-responsive">
             <thead>
               <tr>
-                <th style="width: 20px;">Prestamo</th>
+                <th style="width: 20px;">Orden</th>
                 <th>Cliente</th>
                 <th>Cobrador</th>
                 <th style="width: 100px;">Saldo</th>
@@ -28,7 +29,7 @@
             <tbody>
               <tr>
                  @foreach ($prestamos as $prestamo)
-                    <td>{{$prestamo->id}}</td>
+                    <td>{{$prestamo->orden}}</td>
                     <td width="10px">{{$prestamo->cliente->nombre }}</td>
                     <td width="10px">{{$prestamo->cobrador->nombre }}</td>
                     <td width="20px" class="success">
@@ -62,11 +63,6 @@
 
                        ?>
 
-
-
-
-
-
                     </td>
                      <td > <?php $valor=number_format( $prestamo->valor, 0, '.', '.' ); echo "$$valor";?></td>
                     <td>
@@ -77,29 +73,9 @@
                        </div>
                     </td>
                    
-       
-    
-       
+                    <td>  <a href="#" class="btn btn-warning btn-sm"n v-on:click.prevent="editPrestamo({{$prestamo}})">Ordenar</a></td>
+                    <td><a href="movimientos/{{$prestamo->id}}"class="btn btn-success btn-sm ">Ver</a></td>
 
-               {{--  <td width="10px">
-                    <div class="radio">
-                      <label>
-                        <input name="optionsRadios" id="optionsRadios1" v-on:click="PagarCuota({{$prestamo->id}},40000)" value="option1" type="radio">
-                       Pago
-                      </label>
-                    </div>
-                </td>
-                <td width="10px"> 
-                        
-                     <div class="radio">
-                      <label>
-                        <input name="optionsRadios" id="optionsRadios2"  v-on:click="DebeCuota" value="option2" type="radio">
-                        debe
-                      </label>
-                    </div>
-            
-                </td> --}}
-                <td>  <a href="#" class="btn btn-warning btn-sm"n v-on:click.prevent="editPrestamo(prestamo)">Editar</a></td>
               </tr>
             @endforeach
             </tbody>
@@ -108,8 +84,8 @@
           </span>
           </table>
         
-   {{--    @include('prestamos.create')
-      @include('prestamos.edit')  --}}
+  
+        @include('cobros.prestamo.edit')  
             
           
         </div>

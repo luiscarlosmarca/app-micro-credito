@@ -17,6 +17,7 @@
                 <th>Id</th>
                 <th>Detalles</th>
                 <th>Valor</th>
+                <th>Cartera</th>
                         
                 <th colspan="2">
                   &nbsp;
@@ -28,6 +29,7 @@
                 <td width="10px">@{{gasto.id}}</td>
                 <td>@{{gasto.detalle}}</td>
                 <td>@{{gasto.valor}}</td>
+                <td>@{{gasto.cartera_id}}</td>
                
               
                 <td width="10px">

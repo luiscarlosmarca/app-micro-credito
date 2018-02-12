@@ -13,16 +13,13 @@ class CobroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $prestamo=Prestamo::get();
+        $prestamo=Prestamo::findOrFail($id);
 
-        // return response()->json([
-        //     'prestamo'    => $prestamo,
-
-        // ], 200);
- 
         return $prestamo;
+       
+       // return view('admin.cursos.edit',compact('cursos'));
     }
 
     /**
@@ -65,9 +62,16 @@ class CobroController extends Controller
      * @param  \credito\Cobro  $cobro
      * @return \Illuminate\Http\Response
      */
-    public function show(Cobro $cobro)
+    public function movimientos($id)
     {
-        //
+       //$prestamo=Prestamo::findOrFail($id);
+
+       $cobros=Cobro::where('prestamo_id',$id)->get();
+       
+       //return response($cobros);
+
+       return view('movimientos');
+       
     }
 
     /**
@@ -99,8 +103,11 @@ class CobroController extends Controller
      * @param  \credito\Cobro  $cobro
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cobro $cobro)
-    {
-        //
+    public function destroy($id)
+    {   
+
+        $cobro=Cobro::findOrFail($id);
+        $cobro->delete(); 
+        return $cobro;
     }
 }

@@ -5,6 +5,7 @@ namespace credito\Http\Controllers;
 use credito\Prestamo;
 use Illuminate\Http\Request;
 
+
 class PrestamoController extends Controller
 {
     /**
@@ -80,11 +81,16 @@ class PrestamoController extends Controller
     {
         $this->validate($request,[
 
-            'valor_cuota'=>['required','integer'],
+            'valor_cuota'=>['integer'],
             'articulo'=>'string',
             'valor'=>'integer',
                        
         ]);
+
+        // if(!$request->has('valor')){
+        //     $request->merge('orden',)
+        // }
+
 
         $prestamo=Prestamo::find($id)->update($request->all());
         
@@ -99,8 +105,11 @@ class PrestamoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+
         $prestamo=Prestamo::findOrFail($id);
         $prestamo->delete(); 
+
+        return;
     }
 }

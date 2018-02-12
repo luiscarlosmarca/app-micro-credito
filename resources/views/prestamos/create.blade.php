@@ -21,7 +21,7 @@
               {{ Form::select('cliente_id', $clientes, 0,['class'=>'form-control cliente_id'],['v-model'=>'cliente_id']) }}
 
               <label for="persona">Cobrador </label>
-              {{ Form::select('cobrador_id', $cobradores, 0,['class'=>'form-control cobrador_id'],['v-model'=>'cobrador_id']) }}
+              {{ Form::select('cobrador_id', $cobradores, 0,['class'=>'form-control cobrador_id','disabled'=>'true'],['v-model'=>'cobrador_id']) }}
 
               <label for="persona">Articulo </label>
               <input type="text" name="articulo" class="form-control" v-model="articulo">
@@ -61,7 +61,7 @@
                 
                                   
 
-          <span v-for="error in errors" id="error" lass="text-danger">
+          <span v-for="error in errors" id="error" class="error" lass="text-danger">
             @{{error}}
           </span>
        </div>

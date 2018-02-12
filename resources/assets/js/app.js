@@ -55,6 +55,7 @@ const cartera = new Vue({
 				this.getCartera();
 				this.fillCartera={'id':'', 'nombre':''};
 				this.errors=[];
+
 				$('#edit').modal('hide');
 				toastr.success('Cartera Actualizada Correctamente');
 			}).catch(error=>{
@@ -330,11 +331,13 @@ const gasto = new Vue({
 		gastos:[],
 		detalle:'',
 		valor:'',
+		cartera_id:'',
 		errors:[],
 		fillgasto:{
 			'detalle':'',
 			'valor':'',
-			'id':''
+			'id':'',
+			'cartera_id':'',
 		}
 	},	
 	methods: {
@@ -350,6 +353,7 @@ const gasto = new Vue({
 			this.fillgasto.detalle=gasto.detalle;
 			this.fillgasto.valor=gasto.valor;
 			this.fillgasto.id=gasto.id;
+			this.fillgasto.cartera_id=gasto.cartera_id;
 			
 			$('#edit').modal('show');
 			$('#error').empty();
@@ -364,6 +368,7 @@ const gasto = new Vue({
 					'id':'',
 					'valor':'',
 					'detalle':'',
+					cartera_id:'',
 					
 
 				}
@@ -389,6 +394,7 @@ const gasto = new Vue({
 			axios.post(url,{
 				valor: this.valor,
 				detalle: this.detalle,
+				cartera_id: $(".cartera_id").val(),
 				
 
 			}).then(response=>{
@@ -396,6 +402,7 @@ const gasto = new Vue({
 				this.getGasto();
 				this.valor='';
 				this.detalle='';
+				this.cartera_id='';
 			
 				this.errors=[]; 
 				$('#create').modal('hide');
@@ -412,6 +419,7 @@ const gasto = new Vue({
 });
 var interes;
 var cuota;
+
 const prestamo = new Vue({
     el: '#prestamos',
    	created: function() {
@@ -471,6 +479,7 @@ const prestamo = new Vue({
 			
 			$('#edit').modal('show');
 			$('#error').empty();
+			$(".error").empty();
 
 		},
 		updatePrestamo:function(id) {
@@ -493,15 +502,18 @@ const prestamo = new Vue({
 					
 				};
 			this.errors=[];
-				$('#edit').modal('hide');
-				toastr.success('Prestamo Actualizada Correctamente');
+			$(".error").empty();
+			$('#edit').modal('hide');
+			toastr.success('Prestamo Actualizada Correctamente');
 			}).catch(error=>{
 				this.errors = error.response.data;
 			});
 
 		 },
 		deletePrestamo:function(prestamo){
+
 			var urlDelete ='prestamo/' + prestamo.id
+			
 			axios.delete(urlDelete).then(response=>{
 				this.getPrestamo();  
 				toastr.success('Prestamo eliminado eliminado correctamente');
@@ -518,7 +530,7 @@ const prestamo = new Vue({
 				valor_cuota: this.valor_cuota,
 				valor_seguro: this.valor_seguro,
 				plazo: this.plazo,
-				estado: this.estado,
+				estado: $(".estado").val(),
 				cliente_id: $(".cliente_id").val(),
 				cartera_id: $(".cartera_id").val(),
 				cobrador_id: $(".cobrador_id").val(),
@@ -562,6 +574,7 @@ const prestamo = new Vue({
 			cuota=interes/this.plazo;
 			this.pago_domingos= cuota*4;
 			this.valor_cuota=cuota;
+			this.valor_seguro=cuota;
 		}	
 	}
 
@@ -569,19 +582,16 @@ const prestamo = new Vue({
 
 const cobro = new Vue({
     el: '#cobros',
-   	created: function() {
-		this.getPrestamo();
-	},
+   
 	data:{
 		prestamos:[],
 		prestamo_id:'',
 		valor:'',
+		efectivo_diario:0,
 		errors:[],
-		fillprestamos:{
-			'detalle':'',
-			'valor':'',
-			'id':''
-		}
+		orden:{orden:''},
+		id_prestamo:'',
+		cobro:{valor:0,observacines:''}
 	},	
 	methods: {
 		getPrestamo: function() {
@@ -590,50 +600,46 @@ const cobro = new Vue({
 				this.prestamos = response.data
 			});
 		},
-		editPrestamo: function(prestamo) {
-
+		editCobro: function(cobro) {
 	
-			this.fillprestamos.detalle=prestamos.detalle;
-			this.fillprestamos.valor=prestamos.valor;
-			this.fillprestamos.id=prestamos.id;
+			this.cobro.valor=cobro.valor;
+			this.cobro.observacines=cobro.observacines;
+			this.id_cobro=cobro.id;
 			
 			$('#edit').modal('show');
 			$('#error').empty();
 
 		},
-		updatePrestamo:function(id) {
+		editPrestamo: function(prestamo) {
+	
+			this.orden.orden=prestamo.orden;
+			this.id_prestamo=prestamo.id;
+			
+			$('#edit').modal('show');
+			$('#error').empty();
+
+		},
+		ordenar:function(id) {
 			var url = 'prestamo/' + id;
-			axios.put(url,this.fillgasto).then(response=>{
+			axios.put(url,this.orden).then(response=>{
 
-				this.getPrestamo();
-				fillprestamos={
-					'id':'',
-					'valor':'',
-					'detalle':'',
-					
-
-				}
+				orden={orden:''}
+				
 			this.errors=[];
 				$('#edit').modal('hide');
-				toastr.success('cliente Actualizada Correctamente');
+				toastr.success('Prestamo actualizado Correctamente');
 			}).catch(error=>{
 				this.errors = error.response.data;
 			});
 
 		},
-		deletePrestamo:function(prestamo){
-			var urlDelete ='prestamo/' + prestamo.id
-			axios.delete(urlDelete).then(response=>{
-				this.getPrestamo();  
-				toastr.success('Prestamo eliminado eliminado correctamente');
-			});
-			
-		},
+	
 		PagarCuota:function(prestamo){
 
 			var url='cobro'
 			var valor="#"+prestamo;
 			valor_cuota=$(valor).val();
+			this.efectivo_diario=parseInt(this.efectivo_diario)+parseInt(valor_cuota);
 			axios.post(url,{
 				valor: valor_cuota,
 				prestamo_id: prestamo,
@@ -654,10 +660,16 @@ const cobro = new Vue({
 			});
 
 		},
-		test:function(){
-			alert("debd");
-		}		
+		deleteCobro:function(id) {
+		
+			var urlDelete ='/cobro/'+id
+			axios.delete(urlDelete).then(response=>{
+				
+				toastr.success('Movimiento eliminado eliminado correctamente');
+			});
+		}
 
 	}
 
 });
+

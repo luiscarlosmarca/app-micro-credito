@@ -14,27 +14,27 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
  <!-- css files-->
- <link rel="stylesheet" href="css/toastr.css">
- <link rel="stylesheet" href="adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+ <link rel="stylesheet" href="/css/toastr.css">
+ <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="adminlte/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="adminlte/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="adminlte/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/adminlte/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/adminlte/dist/css/skins/_all-skins.min.css">
   <!-- Morris chart -->
-  <link rel="stylesheet" href="adminlte/bower_components/morris.js/morris.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/morris.js/morris.css">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="adminlte/bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/jvectormap/jquery-jvectormap.css">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -170,7 +170,7 @@
       </div>
       <!-- /.box -->
 
-    </section>
+    </section >
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -192,8 +192,8 @@
 <!-- ./wrapper -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="{{asset('js/toastr.js')}}"></script> 
-<script src="{{asset('js/app.js')}}"></script> 
+<script src="/js/toastr.js"></script> 
+<script src="/js/app.js"></script> 
 
 
 
