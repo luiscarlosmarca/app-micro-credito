@@ -1609,7 +1609,7 @@ var cobro = new Vue({
 			});
 		},
 		deleteCobro: function deleteCobro(id) {
-
+			home;
 			var urlDelete = '/cobro/' + id;
 			axios.delete(urlDelete).then(function (response) {
 
