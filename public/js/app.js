@@ -1539,7 +1539,7 @@ var cobro = new Vue({
 		errors: [],
 		orden: { orden: '' },
 		id_prestamo: '',
-		cobro: { valor: 0, observacines: '' }
+		fillcobro: { valor: 0, observacines: '', id: 0 }
 	},
 	methods: {
 		getPrestamo: function getPrestamo() {
@@ -1552,13 +1552,35 @@ var cobro = new Vue({
 		},
 		editCobro: function editCobro(cobro) {
 
-			this.cobro.valor = cobro.valor;
-			this.cobro.observacines = cobro.observacines;
-			this.id_cobro = cobro.id;
+			this.fillcobro.valor = cobro.valor;
+			this.fillcobro.observacines = cobro.observacines;
+			this.fillcobro.id = cobro.id;
 
 			$('#edit').modal('show');
 			$('#error').empty();
 		},
+		updateCobro: function updateCobro(id) {
+			var _this22 = this;
+
+			var url = '/cobro/' + id;
+			axios.put(url, this.fillcobro).then(function (response) {
+
+				_this22.getPrestamo();
+				fillcobro = {
+					'observacines': '',
+					'valor': '',
+					'id': ''
+
+				};
+				_this22.errors = [];
+				$(".error").empty();
+				$('#edit').modal('hide');
+				toastr.success('Movimiento Actualizado Correctamente');
+			}).catch(function (error) {
+				_this22.errors = error.response.data;
+			});
+		},
+
 		editPrestamo: function editPrestamo(prestamo) {
 
 			this.orden.orden = prestamo.orden;
@@ -1568,23 +1590,23 @@ var cobro = new Vue({
 			$('#error').empty();
 		},
 		ordenar: function ordenar(id) {
-			var _this22 = this;
+			var _this23 = this;
 
 			var url = '/prestamo/' + id;
 			axios.put(url, this.orden).then(function (response) {
 
 				orden = { orden: '' };
 
-				_this22.errors = [];
+				_this23.errors = [];
 				$('#edit').modal('hide');
 				toastr.success('Prestamo actualizado Correctamente');
 			}).catch(function (error) {
-				_this22.errors = error.response.data;
+				_this23.errors = error.response.data;
 			});
 		},
 
 		PagarCuota: function PagarCuota(prestamo) {
-			var _this23 = this;
+			var _this24 = this;
 
 			var url = '/cobro';
 			var valor = "#" + prestamo;
@@ -1597,19 +1619,19 @@ var cobro = new Vue({
 			}).then(function (response) {
 
 				//this.getPrestamo();
-				_this23.valor = '';
-				_this23.prestamo_id = '';
+				_this24.valor = '';
+				_this24.prestamo_id = '';
 
-				_this23.errors = [];
+				_this24.errors = [];
 
 				$('#error').empty();
 				toastr.success('Cobro  Guardado Correctamente');
 			}).catch(function (error) {
-				_this23.errors = error.response.data;
+				_this24.errors = error.response.data;
 			});
 		},
 		deleteCobro: function deleteCobro(id) {
-			home;
+
 			var urlDelete = '/cobro/' + id;
 			axios.delete(urlDelete).then(function (response) {
 
