@@ -661,7 +661,7 @@ const cobro = new Vue({
 
 		},
 		deleteCobro:function(id) {
-		
+		home
 			var urlDelete ='/cobro/'+id
 			axios.delete(urlDelete).then(response=>{
 				
