@@ -29,23 +29,25 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="prestamo in prestamos">
-                <td width="10px">@{{prestamo.id}}</td>
-                <td width="10px">@{{prestamo.cartera_id}}</td>
-                <td width="10px">@{{prestamo.cobrador_id}}</td>
-                <td>@{{prestamo.cliente_id}}</td>
-                <td>@{{prestamo.valor}}</td>
-                <td>@{{prestamo.created_at}}</td>
+              @foreach ($prestamos as $prestamo)
+              <tr>
+
+                <td width="10px">{{$prestamo->id}}</td>
+                <td width="10px">{{$prestamo->mi_cartera->nombre}}</td>
+                <td width="10px">{{$prestamo->cobrador->nombre}}</td>
+                <td>{{$prestamo->cliente->nombre}}</td>
+                <td>{{$prestamo->valor}}</td>
+                <td>{{$prestamo->created_at}}</td>
                
               
                 <td width="10px">
-                  <a href="#" class="btn btn-warning btn-sm"n v-on:click.prevent="editPrestamo(prestamo)">Editar</a>
+                  <a href="#" class="btn btn-warning btn-sm"n v-on:click.prevent="editPrestamo({{$prestamo}})">Editar</a>
                 </td>
                 <td width="10px"> 
-                  <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deletePrestamo(prestamo)">Eliminar</a>
+                  <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deletePrestamo({{$prestamo->id}})">Eliminar</a>
                 </td>
               </tr>
-
+              @endforeach 
             </tbody>
           </table>
         

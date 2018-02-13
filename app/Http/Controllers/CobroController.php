@@ -47,7 +47,13 @@ class CobroController extends Controller
             
                       
         ]);
+        $sum = $request->valor;
+        if(\Session::get('valor_estatico')){
 
+            $sum = \Session::get('valor_estatico')+$request->valor;
+            
+        }
+        \Session::put('valor_estatico',$sum);
         $cobro=Cobro::create($request->all()); 
 
         $prestamo=Prestamo::find($request->prestamo_id);
