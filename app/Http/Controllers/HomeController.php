@@ -72,10 +72,12 @@ class HomeController extends Controller
     public function prestamos(){
 
         $carteras=Cartera::orderBy('nombre','ASC')->pluck('nombre','id');
+        $prestamos=Prestamo::orderBy('created_at','ASC')->get();
         $cobradores=Persona::where('role','cobrador')->pluck('nombre','id');
         $clientes=Persona::where('role','cliente')->pluck('nombre','id');
 
-        return view('prestamos',compact('clientes','carteras','cobradores'));
+
+        return view('prestamos',compact('clientes','carteras','cobradores','prestamos'));
     }
 
     public function cobros(Request $request){

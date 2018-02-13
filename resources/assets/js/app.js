@@ -582,7 +582,7 @@ const prestamo = new Vue({
 
 const cobro = new Vue({
     el: '#cobros',
-   
+    
 	data:{
 		prestamos:[],
 		prestamo_id:'',
@@ -592,7 +592,10 @@ const cobro = new Vue({
 		orden:{orden:''},
 		id_prestamo:'',
 		fillcobro:{valor:0,observacines:'',id:0}
-	},	
+	},
+	mounted:function(){
+		this.efectivo_diario=this.efectivo_diario+parseInt($(".estatic").val())
+	},
 	methods: {
 		getPrestamo: function() {
 			var url = '/cobro';
@@ -663,6 +666,8 @@ const cobro = new Vue({
 			var valor="#"+prestamo;
 			valor_cuota=$(valor).val();
 			this.efectivo_diario=parseInt(this.efectivo_diario)+parseInt(valor_cuota);
+			
+
 			axios.post(url,{
 				valor: valor_cuota,
 				prestamo_id: prestamo,

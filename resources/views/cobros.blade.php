@@ -1,10 +1,10 @@
 @extends('layouts.master')
-
 @section('content')
 <div id="cobros"  class="box-header with-border">
    
-    <h1 class="box-title"> Cobros</h3>
-    ->Efectivo diario @{{efectivo_diario}}
+    <h1 class="box-title" > Cobros</h3>
+      <input type="hidden" class="estatic" id="estatic" value="{{\Session::get('valor_estatico') ?: 0}}" name="">
+    ->Efectivo diario @{{efectivo_diario}} 
     @include('cobros.search') 
     <div class="box-body" style="margin-left: 10px;margin-right: 10px;">
         <div class="row">
