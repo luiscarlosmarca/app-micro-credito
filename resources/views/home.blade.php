@@ -15,6 +15,8 @@
                             <th style="width: 200px">Cartera</th>
                             <th>Gastos</th>
                             <th>Prestamos</th>
+                            <th>Ingresos</th>
+                            <th>Seguros</th>
                           
                             <th>Utilidad</th>
                           
@@ -34,22 +36,22 @@
                                   <?php $total_gastos=$gasto->valor+$total_gastos; ?>
                                  
                                  @endforeach 
-
-                                
                                 <?php 
+                                $gastos=$total_gastos;
                                  $total_gastos=number_format($total_gastos, 0, '.', '.' );
+
                                 echo "$$total_gastos";?>
-                            
-                                             
+                                                        
 
                              </td>
 
                             <td width="10px">
 
-                                  <?php $total_prestamos=0; $aux_utilidades=0; ?>
+                                  <?php $total_prestamos=0; $seguros=0; $pagos_domingos=0 ?>
                                  @foreach ($cartera->prestamos as $prestamo)
                                   <?php $total_prestamos=$prestamo->valor+$total_prestamos; 
-                                  $aux_utilidades=$prestamo->valor_seguro+ $prestamo->pago_domingos+$aux_utilidades;
+                                  $seguros=$prestamo->valor_seguro+$seguros;
+                                  $pagos_domingos=$pagos_domingos+$prestamo->pago_domingos;
                                   ?>
                                                          
                                  @endforeach 
@@ -57,6 +59,7 @@
                                  <?php
                                  $interes=($total_prestamos*17)/100;
                                  $total_prestamos=$total_prestamos-$interes;
+                                 $prestamos=$total_prestamos;
                                  $total_prestamos=number_format($total_prestamos, 0, '.', '.' );
                                  echo "$$total_prestamos";
 
@@ -64,25 +67,35 @@
                 
 
                              </td>
-                            
                             <td>
-                                 <?php $utilidad=0;?>
+                                <?php $cobros=0;?>
                                  @foreach ($cartera->prestamos as $prestamo)
                                  
                                     @foreach ($prestamo->cobros as $cobro)
-                                         <?php $utilidad=$cobro->valor+$utilidad; ?>
+                                         <?php $cobros=$cobro->valor+$cobros; ?>
                                       @endforeach 
                                  @endforeach   
+
+                                 <?php $cobros=$cobros+$pagos_domingos; echo "$cobros"; ?>
+
+                            </td>
+
+                            <td>
+                                <?php echo "$seguros";?>
+
+                            </td>
+                         <td>
+                                 
                                   
                                 <?php 
-                                    $interes=($utilidad*20)/100;
-                                    $utilidad = $utilidad-$interes;
-                                    $utilidad= ($utilidad + $aux_utilidades)-$total_gastos-$total_prestamos;
+                                    $utilidad=0;
+                                    $utilidad=($cobros+$seguros)-($gastos+$prestamos);
+                                    
                                     if ($utilidad<0) {
                                         
-                                       // $utilidad= $utilidad*-1;
+                                       $utilidad= $utilidad*-1;
                                         
-                                         //$utilidad=number_format( $utilidad, 0, '.', '.' );
+                                        $utilidad=number_format( $utilidad, 0, '.', '.' );
                                          echo "<label class='control-label bg-red' for='inputSuccess'><i class='fa fa-check'></i>";
                                           echo "$";
                                          echo "$utilidad";
@@ -104,7 +117,7 @@
                                 ?>
                             
                             </td>
-                            
+                             
                            
                           
                             
