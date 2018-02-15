@@ -31,15 +31,34 @@ class Cartera extends Model
   
 
 
-    public static function filter($fecha=null){
+    // public static function filter($fecha=null){
     
-    $cartera = Cartera::all()->get();
-    $cartera->map(function($_this) use($fecha){
-    	dd($_this->prestamos());
-    });
+    // $cartera = Cartera::all()->get();
+    // $cartera->map(function($_this) use($fecha){
+    // 	dd($_this->prestamos());
+    // });
  
-        // ->orderBy('created_at','ASC')
-        // ->paginate();
+    //     // ->orderBy('created_at','ASC')
+    //     // ->paginate();
+    // }
+
+
+     public function scopeMis_gastos($query, $fecha) {
+        
+      if(trim($fecha)!=""){
+
+        $query->where('cartera_id',$cartera); 
+      }
+
+    }
+
+
+    public static function filter($cartera){
+    
+    return Prestamo::cartera($cartera)
+ 
+        ->orderBy('orden','ASC')
+        ->paginate();
     }
 
 

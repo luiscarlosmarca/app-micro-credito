@@ -19,7 +19,8 @@
                 <th>Cliente</th>
                 <th>Cobrador</th>
                 <th style="width: 100px;">Saldo</th>
-                <th>Valor</th>
+                <th>Valor Prestado</th>
+                <th>Valor a pagar</th>
                 <th style="width: 200px;">Cuota</th>
                 <th>Accion</th>
          
@@ -31,7 +32,7 @@
                  @foreach ($prestamos as $prestamo)
                     <td>{{$prestamo->orden}}</td>
                     <td width="10px">{{$prestamo->cliente->nombre }}</td>
-                    <td width="10px">{{$prestamo->cobrador->nombre }}</td>
+                    <td width="10px">{{$prestamo->cliente->cobrador->nombre }}</td>
                     <td width="20px" class="success">
                      <?php $total_pagos=0; ?>
                      @foreach ($prestamo->cobros as $cobro)
@@ -40,7 +41,7 @@
                      @endforeach 
 
                     
-                      <?php $saldo= $prestamo->valor-$total_pagos -$prestamo->pago_domingos-$prestamo->valor_seguro;
+                      <?php $saldo= $prestamo->valor_pagar-$total_pagos -$prestamo->pago_domingos-$prestamo->valor_seguro;
                         
                           
                         
@@ -65,6 +66,7 @@
 
                     </td>
                      <td > <?php $valor=number_format( $prestamo->valor, 0, '.', '.' ); echo "$$valor";?></td>
+                     <td > <?php $valor_a_pagar=number_format( $prestamo->valor_pagar, 0, '.', '.' ); echo "$$valor_a_pagar";?></td>
                     <td>
                        <div class="input-group">
                         <span class="input-group-addon">$</span>

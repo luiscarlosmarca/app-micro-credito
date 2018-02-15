@@ -32,7 +32,7 @@
           <input type="text" name="estado" value="test" class="form-control" v-model="fillcliente.estado">
 
           <label for="persona">Cobrador</label>
-          {{ Form::select('cobrador_id', $cobradores, 0,['class'=>'form-control cobrador_id'],['v-model'=>'fillcliente.cobrador_id']) }}
+          {{ Form::select('cobrador_id', $cobradores, 0,['class'=>'form-control cobrador_id','id'=>'cobrador_id']) }}
 
 
         <div id="error">

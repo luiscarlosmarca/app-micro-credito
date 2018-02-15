@@ -28,17 +28,27 @@ class HomeController extends Controller
     {
          $carteras=Cartera::orderBy('nombre','ASC')->get();
 
-      //        $fecha='2018-02-10';
-      // $carteras = Cartera::select('carteras.nombre','gastos.valor','cobros.valor','prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos')
+       // $carteras_gastos=Cartera::join('gastos',function($join){
+        //     $join->on('carteras.id','=','gastos.cartera_id')
+        //     ->whereDate('gastos.created_at','=','2018-02-14');
+        // })->get();
+
+        // $carteras_prestamos=Cartera::join('prestamos',function($join){
+        //     $join->on('carteras.id','=','prestamos.cartera_id')
+        //     ->whereDate('prestamos.created_at','=','2018-02-14');
+        // })->get();
+
+            
+      // $carteras = Cartera::select('gastos.created_at as fecha_gasto','prestamos.created_at as fecha_prestamo',
+      //                   'cobros.created_at as fecha_cobro','prestamos.valor as valor_prestado','prestamos.pago_domingos as pago_domingos','prestamos.valor_seguro as valor_seguro',
+      //                   'gastos.valor as valor_gasto','cobros.valor as valor_cobro','carteras.nombre as nombre_cartera')
       //                   ->join('gastos','carteras.id','gastos.cartera_id')
       //                   ->join('prestamos','carteras.id','prestamos.cartera_id')
       //                   ->join('cobros','prestamos.id','cobros.prestamo_id')
-      //                   ->whereDate('cobros.created_at','=',$fecha)
-      //                   ->whereDate('gastos.created_at','=',$fecha)
       //                   ->get();
 
-      //       dd($carteras);
-
+           // dd($carteras);
+        //dd($carteras_prestamos);
         return view('home',compact('carteras'));
     }
 
