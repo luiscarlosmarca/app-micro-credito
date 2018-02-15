@@ -329,7 +329,6 @@ var cliente = new Vue({
 			this.fillcliente.email = cliente.email;
 			this.fillcliente.estado = cliente.estado;
 
-			$(".cobrador_id").val(cliente.cobrador_id);
 			this.fillcliente.cobrador_id = cliente.cobrador_id;
 			$('#edit').modal('show');
 			$('#error').empty();
@@ -337,9 +336,8 @@ var cliente = new Vue({
 		updateCliente: function updateCliente(id) {
 			var _this10 = this;
 
-			this.fillcliente.cobrador_id = $(".cobrador_id").val();
-			$('#edit').modal('show');
 			var url = 'persona/' + id;
+			this.fillcliente.cobrador_id = $("#cobrador_id").val();
 			axios.put(url, this.fillcliente).then(function (response) {
 
 				_this10.getCliente();
@@ -502,7 +500,7 @@ var gasto = new Vue({
 	}
 
 });
-var interes;
+var valor_a_pagar = 0;
 var cuota;
 
 var prestamo = new Vue({
@@ -515,14 +513,14 @@ var prestamo = new Vue({
 		articulo: '',
 		valor: '',
 		cartera_id: '',
-		cobrador_id: '',
+
 		cliente_id: '',
 		estado: ''
-	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
+	}, _defineProperty(_data, 'valor', ''), _defineProperty(_data, 'valor_pagar', ''), _defineProperty(_data, 'valor_seguro', ''), _defineProperty(_data, 'valor_cuota', ''), _defineProperty(_data, 'plazo', ''), _defineProperty(_data, 'pago_domingos', ''), _defineProperty(_data, 'errors', []), _defineProperty(_data, 'fillprestamo', (_fillprestamo = {
 		'articulo': '',
 		'valor': '',
 		'cartera_id': '',
-		'cobrador_id': '',
+		'valor_pagar': '',
 		'cliente_id': '',
 		'estado': ''
 	}, _defineProperty(_fillprestamo, 'valor', ''), _defineProperty(_fillprestamo, 'valor_seguro', ''), _defineProperty(_fillprestamo, 'valor_cuota', ''), _defineProperty(_fillprestamo, 'plazo', ''), _defineProperty(_fillprestamo, 'pago_domingos', ''), _defineProperty(_fillprestamo, 'id', ''), _fillprestamo)), _data),
@@ -546,7 +544,7 @@ var prestamo = new Vue({
 			this.fillprestamo.pago_domingos = prestamo.pago_domingos;
 			this.fillprestamo.cartera_id = prestamo.cartera_id;
 			this.fillprestamo.cliente_id = prestamo.cliente_id;
-			this.fillprestamo.cobrador_id = prestamo.cobrador_id;
+
 			this.fillprestamo.id = prestamo.id;
 
 			$('#edit').modal('show');
@@ -557,6 +555,8 @@ var prestamo = new Vue({
 			var _this18 = this;
 
 			var url = 'prestamo/' + id;
+			this.fillprestamo.cartera_id = $("#cartera_id").val();
+			this.fillprestamo.cliente_id = $("#cliente_id").val();
 			axios.put(url, this.fillprestamo).then(function (response) {
 				var _fillprestamo2;
 
@@ -565,7 +565,7 @@ var prestamo = new Vue({
 					'articulo': '',
 					'valor': '',
 					'cartera_id': '',
-					'cobrador_id': '',
+
 					'cliente_id': '',
 					'estado': ''
 				}, _defineProperty(_fillprestamo2, 'valor', ''), _defineProperty(_fillprestamo2, 'valor_seguro', ''), _defineProperty(_fillprestamo2, 'valor_cuota', ''), _defineProperty(_fillprestamo2, 'plazo', ''), _defineProperty(_fillprestamo2, 'pago_domingos', ''), _fillprestamo2);
@@ -602,7 +602,8 @@ var prestamo = new Vue({
 				cliente_id: $(".cliente_id").val(),
 				cartera_id: $(".cartera_id").val(),
 				cobrador_id: $(".cobrador_id").val(),
-				pago_domingos: this.pago_domingos
+				pago_domingos: this.pago_domingos,
+				valor_pagar: valor_a_pagar
 
 			}).then(function (response) {
 
@@ -616,15 +617,16 @@ var prestamo = new Vue({
 				_this20.errors = error.response.data;
 			});
 		},
+
 		calcularInteres: function calcularInteres() {
 
-			interes = this.valor * 20 / 100;
-			interes = parseInt(interes) + parseInt(this.valor);
-			this.valor = interes;
+			valor_a_pagar = this.valor * 20 / 100;
+			valor_a_pagar = parseInt(valor_a_pagar) + parseInt(this.valor);
+			this.valor_pagar = valor_a_pagar;
 		},
 		calcularCuota: function calcularCuota() {
 
-			cuota = interes / this.plazo;
+			cuota = valor_a_pagar / this.plazo;
 			this.pago_domingos = cuota * 4;
 			this.valor_cuota = cuota;
 			this.valor_seguro = cuota;
@@ -739,9 +741,10 @@ var cobro = new Vue({
 				_this24.errors = error.response.data;
 			});
 		},
-		deleteCobro: function deleteCobro(id) {
+		deleteCobro: function deleteCobro(cobro) {
 
-			var urlDelete = '/cobro/' + id;
+			var urlDelete = '/cobro/' + cobro.id;
+			this.efectivo_diario = parseInt(this.efectivo_diario) + parseInt(cobro.valor);
 			axios.delete(urlDelete).then(function (response) {
 
 				toastr.success('Movimiento eliminado eliminado correctamente');

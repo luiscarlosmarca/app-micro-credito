@@ -245,16 +245,16 @@ const cliente = new Vue({
 			this.fillcliente.email=cliente.email;
 			this.fillcliente.estado=cliente.estado;
 			
-			$(".cobrador_id").val(cliente.cobrador_id);
+			
 			this.fillcliente.cobrador_id=cliente.cobrador_id;
 			$('#edit').modal('show');
 			$('#error').empty();
 
 		},
 		updateCliente:function(id) {
-			this.fillcliente.cobrador_id=$(".cobrador_id").val();
-			$('#edit').modal('show');
+			
 			var url = 'persona/' + id;
+			this.fillcliente.cobrador_id=$("#cobrador_id").val();
 			axios.put(url,this.fillcliente).then(response=>{
 
 				this.getCliente();
@@ -417,23 +417,25 @@ const gasto = new Vue({
 	}
 
 });
-var interes;
+var valor_a_pagar=0;
 var cuota;
 
 const prestamo = new Vue({
     el: '#prestamos',
    	created: function() {
 		this.getPrestamo();
+
 	},
 	data:{
 		prestamos:[],
 		articulo:'',
 		valor:'',
 		cartera_id:'',
-		cobrador_id:'',
+	
 		cliente_id:'',
 		estado:'',
 		valor:'',
+		valor_pagar:'',
 		valor_seguro:'',
 		valor_cuota:'',
 		plazo:'',
@@ -445,7 +447,7 @@ const prestamo = new Vue({
 			'articulo':'',
 			'valor':'',
 			'cartera_id':'',
-			'cobrador_id':'',
+			'valor_pagar':'',
 			'cliente_id':'',
 			'estado':'',
 			'valor':'',
@@ -474,7 +476,7 @@ const prestamo = new Vue({
 			this.fillprestamo.pago_domingos=prestamo.pago_domingos;
 			this.fillprestamo.cartera_id=prestamo.cartera_id;
 			this.fillprestamo.cliente_id=prestamo.cliente_id;
-			this.fillprestamo.cobrador_id=prestamo.cobrador_id;
+			
 			this.fillprestamo.id=prestamo.id;
 			
 			$('#edit').modal('show');
@@ -484,6 +486,8 @@ const prestamo = new Vue({
 		},
 		updatePrestamo:function(id) {
 			var url = 'prestamo/' + id;
+			this.fillprestamo.cartera_id=$("#cartera_id").val()
+			this.fillprestamo.cliente_id=$("#cliente_id").val()
 			axios.put(url,this.fillprestamo).then(response=>{
 
 				this.getPrestamo();
@@ -491,7 +495,7 @@ const prestamo = new Vue({
 					'articulo':'',
 					'valor':'',
 					'cartera_id':'',
-					'cobrador_id':'',
+					
 					'cliente_id':'',
 					'estado':'',
 					'valor':'',
@@ -535,7 +539,7 @@ const prestamo = new Vue({
 				cartera_id: $(".cartera_id").val(),
 				cobrador_id: $(".cobrador_id").val(),
 				pago_domingos: this.pago_domingos,
-				
+				valor_pagar:valor_a_pagar,
 
 				
 
@@ -563,15 +567,16 @@ const prestamo = new Vue({
 			});
 
 		},	
+
 		calcularInteres:function(){
 
-			interes=((this.valor*20)/100);
-			interes= parseInt(interes) +  parseInt(this.valor);
-			this.valor= interes;
+			valor_a_pagar=((this.valor*20)/100);
+			valor_a_pagar= parseInt(valor_a_pagar)+ parseInt(this.valor);
+			this.valor_pagar=valor_a_pagar;
 		},
 		calcularCuota:function(){
 
-			cuota=interes/this.plazo;
+			cuota=valor_a_pagar/this.plazo;
 			this.pago_domingos= cuota*4;
 			this.valor_cuota=cuota;
 			this.valor_seguro=cuota;
@@ -688,9 +693,10 @@ const cobro = new Vue({
 			});
 
 		},
-		deleteCobro:function(id) {
+		deleteCobro:function(cobro) {
 			
-			var urlDelete ='/cobro/'+id
+			var urlDelete ='/cobro/'+cobro.id
+			this.efectivo_diario=parseInt(this.efectivo_diario)+parseInt(cobro.valor);
 			axios.delete(urlDelete).then(response=>{
 				
 				toastr.success('Movimiento eliminado eliminado correctamente');

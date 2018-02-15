@@ -26,73 +26,72 @@
                           </tr>
                         </thead>
                         <tbody>
-                        @foreach ($carteras as $cartera)
+                       
                           <tr>
-                            <td width="10px">{{$cartera->nombre}}</td>
+                            <?php $fecha_buscada='2018-02-11' ?>
+                        @foreach ($carteras as $cartera)
+                            <td width="10px"> {{$cartera->nombre_cartera}}</td>
                             <td width="10px">
 
-                                  <?php $total_gastos=0; ?>
-                                 @foreach ($cartera->gastos as $gasto)
-                                  <?php $total_gastos=$gasto->valor+$total_gastos; ?>
-                                 
-                                 @endforeach 
-                                <?php 
-                                $gastos=$total_gastos;
-                                 $total_gastos=number_format($total_gastos, 0, '.', '.' );
+                                <?php $total_gastos=0; 
+                                    if(strpbrk($cartera->fecha_gasto,$fecha_buscada)){
 
-                                echo "$$total_gastos";?>
-                                                        
+                                        $total_gastos=$cartera->valor_gasto+$total_gastos; 
 
-                             </td>
+                                     }
+                                        $total_gastos=$total_gastos;
+                                        $gastos=$total_gastos;
+                                        $total_gastos=number_format($total_gastos, 0, '.', '.' );
+                                        echo "$$total_gastos";
+                                ?>
+                            
+                            </td>
 
                             <td width="10px">
 
-                                  <?php $total_prestamos=0; $seguros=0; $pagos_domingos=0 ?>
-                                 @foreach ($cartera->prestamos as $prestamo)
-                                  <?php $total_prestamos=$prestamo->valor+$total_prestamos; 
-                                  $seguros=$prestamo->valor_seguro+$seguros;
-                                  $pagos_domingos=$pagos_domingos+$prestamo->pago_domingos;
-                                  ?>
-                                                         
-                                 @endforeach 
-                                
-                                 <?php
-                                 
-                                 $prestamos=$total_prestamos;
-                                 $total_prestamos=number_format($total_prestamos, 0, '.', '.' );
-                                 echo "$$total_prestamos";
+                                <?php $total_prestamos=0; $seguros=0; $pagos_domingos=0;
+                                 if(strpbrk($cartera->fecha_prestamo,$fecha_buscada))
+                                 {
+                                    $total_prestamos=$cartera->valor_prestado+$total_prestamos; 
+                                    $seguros=$cartera->valor_seguro+$seguros;
+                                    $pagos_domingos=$pagos_domingos+$cartera->pago_domingos;
+                                 }
+                                  
+                             
+                                  $prestamos=$total_prestamos;
+                                  $total_prestamos=number_format($total_prestamos, 0, '.', '.' );
+                                  echo "$$total_prestamos";
 
-                                  ?>
+                                ?>
                 
 
-                             </td>
-                            <td>
-                                <?php $cobros=0;?>
-                                 @foreach ($cartera->prestamos as $prestamo)
-                                 
-                                    @foreach ($prestamo->cobros as $cobro)
-                                         <?php $cobros=$cobro->valor+$cobros; ?>
-                                      @endforeach 
-                                 @endforeach   
+                            </td>
+                           
 
-                                 <?php $cobros=$cobros+$pagos_domingos; 
-                                  $cobros_=$cobros;
-                                   $cobros_=number_format( $cobros_, 0, '.', '.' );
-                                   echo "$";
-                                   echo "$cobros_"; ?>
+                          
+                            
+                            <td>
+                                 <?php $total_cobros=0; 
+                                    if(strpbrk($cartera->fecha_cobro,$fecha_buscada)){
+
+                                        $total_cobros=$cartera->valor_gasto+$total_cobros; 
+
+                                     }
+                                        $total_cobros=$total_cobros;
+                                        $cobros=$total_cobros;
+                                        $total_cobros=number_format($total_cobros, 0, '.', '.' );
+                                        echo "$$total_cobros";
+                                 ?>
 
                             </td>
 
                             <td>
-                                <?php 
-                                $seguros_=$seguros;
-                                $seguros_=number_format( $seguros_, 0, '.', '.' );
-                                echo "$";
-                                  
-                                 echo "$seguros";?>
-
+                                <?php   $seguros=number_format($seguros, 0, '.', '.' );
+                                        echo "$$seguros"; 
+                                ?>
                             </td>
-                         <td>
+
+                            <td>
                                  
                                   
                                 <?php 
@@ -101,7 +100,7 @@
                                     
                                     if ($utilidad<0) {
                                         
-                                        $utilidad= $utilidad*-1;
+                                       $utilidad= $utilidad*-1;
                                         
                                         $utilidad=number_format( $utilidad, 0, '.', '.' );
                                          echo "<label class='control-label bg-red' for='inputSuccess'><i class='fa fa-check'></i>";
@@ -109,7 +108,7 @@
                                          echo "$utilidad";
                                          echo "</label>";
 
-                                    }elseif ($utilidad>=0) {
+                                    }elseif ($utilidad>0) {
                                       
 
                                          $utilidad=number_format( $utilidad, 0, '.', '.' );

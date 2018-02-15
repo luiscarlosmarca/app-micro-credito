@@ -18,7 +18,12 @@ class CreateCobrosTable extends Migration
             $table->integer('prestamo_id')->unsigned()->nullable();
             $table->double('valor');
             $table->string('observaciones')->nullable();
-            $table->foreign('prestamo_id')->references('id')->on('prestamos');
+            
+            $table->foreign('prestamo_id')
+                ->references('id')
+                ->on('prestamos')
+                ->onDelete('SET NULL')
+                ->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

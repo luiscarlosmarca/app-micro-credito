@@ -18,9 +18,12 @@
               <tr>
                 <th>Id</th>
                 <th>Cartera</th>
-                <th>Cobrador</th>
-                <th>Cliente</th>
-                <th>Valor</th>
+                <th style="
+                width: 150px;">Cobrador</th>
+                <th style="
+                width: 150px;">Cliente</th>
+                <th>Valor prestado</th>
+                <th>Valor a pagar</th>
                 <th>Fecha</th>
               
                 <th colspan="2">
@@ -34,9 +37,11 @@
 
                 <td width="10px">{{$prestamo->id}}</td>
                 <td width="10px">{{$prestamo->mi_cartera->nombre}}</td>
-                <td width="10px">{{$prestamo->cobrador->nombre}}</td>
+                <td width="60px">{{$prestamo->cliente->cobrador->nombre}}
+                </td>
                 <td>{{$prestamo->cliente->nombre}}</td>
                 <td>{{$prestamo->valor}}</td>
+                <td>{{$prestamo->valor_pagar}}</td>
                 <td>{{$prestamo->created_at}}</td>
                
               

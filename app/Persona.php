@@ -14,12 +14,12 @@ class Persona extends Model
     }
 
     public function cobrador(){
-        return $this->belongsTo('App\Persona','cobrador_id');
+        return $this->belongsTo('credito\Persona','cobrador_id');
     }
 
     public function cliente(){
 
-    	 return $this->hasMany('App\Persona');
+    	 return $this->hasMany('credito\Persona');
 
     }
 //aqui esta la relacion pivot como la ve?

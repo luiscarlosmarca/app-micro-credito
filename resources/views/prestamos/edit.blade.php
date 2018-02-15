@@ -14,13 +14,12 @@
            <div class="row"> 
           <div class="col-md-6">
               <label for="persona">Cartera </label>
-              {{ Form::select('fillprestamo.cartera_id', $carteras, 0,['class'=>'form-control fillprestamo.cartera_id'],['v-model'=>'fillprestamo.cartera_id']) }}
+              {{ Form::select('fillprestamo.cartera_id', $carteras, 0,['class'=>'form-control fillprestamo.cartera_id','id'=>'cartera_id'],['v-model'=>'fillprestamo.cartera_id']) }}
 
               <label for="persona">Cliente</label>
-              {{ Form::select('fillprestamo.cliente_id', $clientes, 0,['class'=>'form-control fillprestamo.cliente_id'],['v-model'=>'fillprestamo.cliente_id']) }}
+              {{ Form::select('fillprestamo.cliente_id', $clientes, 0,['class'=>'form-control fillprestamo.cliente_id','id'=>'cliente_id'],['v-model'=>'fillprestamo.cliente_id']) }}
 
-              <label for="persona">Cobrador </label>
-              {{ Form::select('fillprestamo.cobrador_id', $cobradores, 0,['class'=>'form-control fillprestamo.cobrador_id'],['v-model'=>'fillprestamo.cobrador_id']) }}
+              
 
               <label for="persona">Articulo </label>
               <input type="text" name="fillprestamo.articulo" class="form-control" v-model="fillprestamo.articulo">

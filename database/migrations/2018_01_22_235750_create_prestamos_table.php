@@ -20,17 +20,28 @@ class CreatePrestamosTable extends Migration
             $table->integer('cobrador_id')->unsigned()->nullable();
             $table->integer('cliente_id')->unsigned()->nullable();
             $table->double('valor')->unsigned()->nullable();
+            
+            $table->double('valor_pagar')->unsigned()->nullable();
             $table->string('articulo')->nullable();
             $table->integer('plazo')->nullable();
             $table->double('pago_domingos')->nullable();
-            $table->double('valor_seguro');
+            $table->double('valor_seguro')->nullable();
             $table->double('valor_cuota');
             $table->string('estado')->nullable();
             $table->string('orden')->nullable();
 
-            $table->foreign('cobrador_id')->references('id')->on('personas');
-            $table->foreign('cliente_id')->references('id')->on('personas');
-            $table->foreign('cartera_id')->references('id')->on('carteras');
+
+            $table->foreign('cliente_id')
+                ->references('id')
+                ->on('personas')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->foreign('cartera_id')
+                ->references('id')
+                ->on('carteras')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
             $table->timestamps();
         });
     }
