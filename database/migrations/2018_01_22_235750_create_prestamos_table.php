@@ -34,13 +34,13 @@ class CreatePrestamosTable extends Migration
             $table->foreign('cliente_id')
                 ->references('id')
                 ->on('personas')
-                ->onUpdate('CASCADE')
-                ->onDelete('CASCADE');
+                ->onUpdate('CASCADE');
+                
             $table->foreign('cartera_id')
                 ->references('id')
                 ->on('carteras')
-                ->onUpdate('CASCADE')
-                ->onDelete('CASCADE');
+                ->onUpdate('CASCADE');
+                
 
             $table->timestamps();
         });

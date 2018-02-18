@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
 {
-	protected $fillable =['nombre','direccion','role','cedula','celular','email','cobrador_id','estado'];
+	protected $fillable =['nombre','direccion','role','cedula','celular','cobrador_id','estado'];
    
     public function prestamos(){
 

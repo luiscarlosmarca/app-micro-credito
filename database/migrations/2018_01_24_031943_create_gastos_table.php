@@ -21,8 +21,8 @@ class CreateGastosTable extends Migration
             $table->foreign('cartera_id')
                 ->references('id')
                 ->on('carteras')
-                ->onUpdate('CASCADE')
-                ->onDelete('SET NULL');
+                ->onUpdate('CASCADE');
+
             $table->timestamps();
         });
     }

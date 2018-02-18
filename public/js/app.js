@@ -185,7 +185,7 @@ var cobrador = new Vue({
 		id: '',
 		nombre: '',
 		cedula: '',
-		email: '',
+
 		celular: '',
 		direccion: '',
 		role: '',
@@ -196,7 +196,7 @@ var cobrador = new Vue({
 			'cedula': '',
 			'celular': '',
 			'direccion': '',
-			'email': '',
+
 			carteras: []
 
 		}
@@ -218,7 +218,7 @@ var cobrador = new Vue({
 			this.fillCobrador.cedula = cobrador.cedula;
 			this.fillCobrador.celular = cobrador.celular;
 			this.fillCobrador.direccion = cobrador.direccion;
-			this.fillCobrador.email = cobrador.email;
+
 			this.fillCobrador.carteras = [$(".carteras").val()];
 			$('#edit').modal('show');
 			$('#error').empty();
@@ -256,7 +256,7 @@ var cobrador = new Vue({
 
 				nombre: this.nombre,
 				cedula: this.cedula,
-				email: this.email,
+
 				celular: this.celular,
 				direccion: this.direccion,
 				role: 'cobrador'
@@ -266,7 +266,7 @@ var cobrador = new Vue({
 				_this8.getCobrador();
 				_this8.nombre = '';
 				_this8.cedula = '';
-				_this8.email = '';
+
 				_this8.celular = '';
 				_this8.direccion = '';
 				_this8.errors = [];
@@ -291,7 +291,7 @@ var cliente = new Vue({
 		clientes: [],
 		nombre: '',
 		cedula: '',
-		email: '',
+
 		celular: '',
 		role: '',
 		direccion: '',
@@ -304,7 +304,7 @@ var cliente = new Vue({
 			'cedula': '',
 			'celular': '',
 			'direccion': '',
-			'email': '',
+
 			'cobrador_id': '',
 			'estado': ''
 
@@ -326,7 +326,7 @@ var cliente = new Vue({
 			this.fillcliente.cedula = cliente.cedula;
 			this.fillcliente.celular = cliente.celular;
 			this.fillcliente.direccion = cliente.direccion;
-			this.fillcliente.email = cliente.email;
+
 			this.fillcliente.estado = cliente.estado;
 
 			this.fillcliente.cobrador_id = cliente.cobrador_id;
@@ -347,7 +347,7 @@ var cliente = new Vue({
 					'cedula': '',
 					'celular': '',
 					'direccion': '',
-					'email': '',
+
 					'cobrador_id': '',
 					'estado': ''
 
@@ -375,7 +375,7 @@ var cliente = new Vue({
 			axios.post(url, {
 				nombre: this.nombre,
 				cedula: this.cedula,
-				email: this.email,
+
 				celular: this.celular,
 				direccion: this.direccion,
 				estado: this.estado,
@@ -387,7 +387,7 @@ var cliente = new Vue({
 				_this12.getCliente();
 				_this12.nombre = '';
 				_this12.cedula = '';
-				_this12.email = '';
+
 				_this12.celular = '';
 				_this12.direccion = '';
 				_this12.cobrador_id = '';

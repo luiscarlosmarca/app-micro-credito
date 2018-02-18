@@ -17,8 +17,7 @@
           <label for="persona">Cedula </label>
           <input type="text" name="cedula" class="form-control" v-model="fillcliente.cedula">
           
-         <label for="persona">Email </label>
-          <input type="text" name="email" class="form-control" v-model="fillcliente.email">
+         
            
           <label for="persona">Celular </label>
           <input type="text" name="celular" class="form-control" v-model="fillcliente.celular">
