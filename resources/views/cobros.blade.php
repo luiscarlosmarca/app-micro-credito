@@ -41,12 +41,12 @@
                      @endforeach 
 
                     
-                      <?php $saldo= $prestamo->valor_pagar-$total_pagos -$prestamo->pago_domingos-$prestamo->valor_seguro;
+                      <?php $saldo= $prestamo->valor_pagar-$total_pagos -$prestamo->pago_domingos;
                         
                           
                         
                         if($saldo>0){
-                          $saldo=number_format( $saldo, 0, '.', '.' );
+                          $saldo=number_format( $saldo, 0, '.', '.' );  
                           echo "$";
                           echo "$saldo";
 
