@@ -22,7 +22,7 @@ class CreateCobrosTable extends Migration
             $table->foreign('prestamo_id')
                 ->references('id')
                 ->on('prestamos')
-                ->onDelete('SET NULL')
+               
                 ->onUpdate('CASCADE');
             $table->timestamps();
         });

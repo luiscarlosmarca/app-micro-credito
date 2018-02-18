@@ -16,7 +16,7 @@
               <tr>
                 <th>Cedula</th>
                 <th>Nombre</th>
-                <th>Email</th>
+                
                 <th>Celular</th>
               
                 <th>Estado</th>
@@ -31,7 +31,7 @@
               <tr v-for="cliente in clientes">
                 <td width="10px">@{{cliente.cedula}}</td>
                 <td>@{{cliente.nombre}}</td>
-                <td>@{{cliente.email}}</td>
+             
                 <td>@{{cliente.celular}}</td>
                
                 <td>@{{cliente.estado}}</td>

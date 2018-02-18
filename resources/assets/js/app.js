@@ -104,7 +104,7 @@ const cobrador = new Vue({
 		id:'',	
 		nombre:'',
 		cedula:'',
-		email:'',
+		
 		celular:'',
 		direccion:'',
 		role:'',
@@ -115,7 +115,7 @@ const cobrador = new Vue({
 			'cedula':'',
 			'celular':'',
 			'direccion':'',
-			'email':'',
+			
 			carteras:[],
 		
 		}
@@ -136,7 +136,7 @@ const cobrador = new Vue({
 			this.fillCobrador.cedula=cobrador.cedula;
 			this.fillCobrador.celular=cobrador.celular;
 			this.fillCobrador.direccion=cobrador.direccion;
-			this.fillCobrador.email=cobrador.email;
+			
 			this.fillCobrador.carteras=[$(".carteras").val()]
 			$('#edit').modal('show');
 			$('#error').empty();
@@ -172,7 +172,7 @@ const cobrador = new Vue({
 
 				nombre: this.nombre,
 				cedula: this.cedula,
-				email:this.email,
+				
 				celular:this.celular,
 				direccion:this.direccion,
 				role:'cobrador',
@@ -183,7 +183,7 @@ const cobrador = new Vue({
 				this.getCobrador();
 				this.nombre='';
 				this.cedula='';
-				this.email='';
+				
 				this.celular='';
 				this.direccion='';
 				this.errors=[]; 
@@ -209,7 +209,7 @@ const cliente = new Vue({
 		clientes:[],
 		nombre:'',
 		cedula:'',
-		email:'',
+		
 		celular:'',
 		role:'',
 		direccion:'',
@@ -222,7 +222,7 @@ const cliente = new Vue({
 			'cedula':'',
 			'celular':'',
 			'direccion':'',
-			'email':'',
+			
 			'cobrador_id':'',
 			'estado':'',
 
@@ -242,7 +242,7 @@ const cliente = new Vue({
 			this.fillcliente.cedula=cliente.cedula;
 			this.fillcliente.celular=cliente.celular;
 			this.fillcliente.direccion=cliente.direccion;
-			this.fillcliente.email=cliente.email;
+			
 			this.fillcliente.estado=cliente.estado;
 			
 			
@@ -264,7 +264,7 @@ const cliente = new Vue({
 					'cedula':'',
 					'celular':'',
 					'direccion':'',
-					'email':'',
+					
 					'cobrador_id':'',
 					'estado':'',
 
@@ -291,7 +291,7 @@ const cliente = new Vue({
 			axios.post(url,{
 				nombre: this.nombre,
 				cedula: this.cedula,
-				email:this.email,
+				
 				celular:this.celular,
 				direccion:this.direccion,
 				estado:this.estado,
@@ -303,7 +303,7 @@ const cliente = new Vue({
 				this.getCliente();
 				this.nombre='';
 				this.cedula='';
-				this.email='';
+				
 				this.celular='';
 				this.direccion='';
 				this.cobrador_id='';
