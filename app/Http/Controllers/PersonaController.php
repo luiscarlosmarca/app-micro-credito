@@ -76,7 +76,7 @@ class PersonaController extends Controller
         $this->validate($request,[
 
             'nombre'=>['required','string'],
-            'cedula'=>['required','integer','unique:personas,email'],
+            'cedula'=>['required','integer'],
             'celular'=>'required',
                        
         ]);
