@@ -33,12 +33,18 @@
                 <td width="10px"> 
                   <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deleteCartera(cartera)">Eliminar</a>
                 </td>
+                  <td width="10px"> 
+                   <a href="#" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#create-prestamo">
+                      Nuevo prestamo
+                  </a>
+                </td>
               </tr>
 
             </tbody>
           </table>
 
        @include('carteras.create')
+       @include('carteras.prestamos.create')
        @include('carteras.edit')
             
           

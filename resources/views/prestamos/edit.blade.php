@@ -33,13 +33,13 @@
           <div class="col-md-6">
 
               <label for="persona">Valor </label>
-              <input type="text" name="valor" class="form-control" v-model="fillprestamo.valor">
+              <input type="text" name="valor" class="form-control"  v-model="fillprestamo.valor">
 
               <label for="persona">Plazo </label>
-              <input type="text" name="plazo" class="form-control" v-model="fillprestamo.plazo">
+              <input type="text" name="plazo" class="form-control"  v-on:focus="calcularInteres(false)"  v-model="fillprestamo.plazo">
            
               <label for="persona">Pagos domingo </label>
-              <input type="text" name="pago_domingos" class="form-control" v-model="fillprestamo.pago_domingos">
+              <input type="text" name="pago_domingos" class="form-control" v-on:focus="calcularCuota(false)" v-model="fillprestamo.pago_domingos">
                 
               <label for="persona">Valor seguro</label>
               <input type="text" name="valor_seguro" value="" class="form-control" v-model="fillprestamo.valor_seguro">
