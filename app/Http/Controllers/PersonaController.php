@@ -13,10 +13,10 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         
-         $personas=Persona::get();
+         $personas=Persona::orderBy('ASC','nombre')->get();
  
          return $personas;
     }

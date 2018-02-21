@@ -4,7 +4,7 @@
 <div id="cliente"  class="box-header with-border">
    
     <h1 class="box-title"> clientes</h3>
-           
+     @include('clientes.search') 
     <div class="box-body" style="margin-left: 10px;margin-right: 10px;">
         <div class="row">
             

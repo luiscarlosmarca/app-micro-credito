@@ -568,19 +568,35 @@ const prestamo = new Vue({
 
 		},	
 
-		calcularInteres:function(){
-
-			valor_a_pagar=((this.valor*20)/100);
-			valor_a_pagar= parseInt(valor_a_pagar)+ parseInt(this.valor);
-			this.valor_pagar=valor_a_pagar;
+		calcularInteres:function(action){
+			
+			if(action){
+				valor_a_pagar=((this.valor*20)/100);
+				valor_a_pagar= parseInt(valor_a_pagar)+ parseInt(this.valor);
+				this.valor_pagar=valor_a_pagar;
+			}else{
+				valor_a_pagar=((this.fillprestamo.valor*20)/100);
+				valor_a_pagar= parseInt(valor_a_pagar) + parseInt(this.fillprestamo.valor);
+				this.fillprestamo.valor_pagar=valor_a_pagar;
+			}
+			
 		},
-		calcularCuota:function(){
+		calcularCuota:function(action){
+			
+			if(action){
+				cuota=valor_a_pagar/this.plazo;
+				this.pago_domingos= cuota*4;
+				this.valor_cuota=cuota;
+				this.valor_seguro=cuota;
+			}else{
 
-			cuota=valor_a_pagar/this.plazo;
-			this.pago_domingos= cuota*4;
-			this.valor_cuota=cuota;
-			this.valor_seguro=cuota;
-		}	
+				cuota=valor_a_pagar/this.fillprestamo.plazo;
+				this.fillprestamo.pago_domingos= cuota*4;
+				this.fillprestamovalor_cuota=cuota;
+				this.fillprestamovalor_seguro=cuota;
+			}	
+		}
+			
 	}
 
 });

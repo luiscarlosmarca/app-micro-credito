@@ -49,7 +49,7 @@
                   <a href="#" class="btn btn-warning btn-sm"n v-on:click.prevent="editPrestamo({{$prestamo}})">Editar</a>
                 </td>
                 <td width="10px"> 
-                  <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deletePrestamo({{$prestamo->id}})">Eliminar</a>
+                  <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="deletePrestamo({{$prestamo}})">Eliminar</a>
                 </td>
               </tr>
               @endforeach 
