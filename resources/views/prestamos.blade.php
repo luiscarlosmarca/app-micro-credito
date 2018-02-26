@@ -55,8 +55,7 @@
               @endforeach 
             </tbody>
           </table>
-         {{$prestamos->links()}}
-
+        
       @include('prestamos.create')
       @include('prestamos.edit') 
             
