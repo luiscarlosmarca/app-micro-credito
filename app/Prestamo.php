@@ -56,7 +56,8 @@ protected $fillable =['cartera_id','cliente_id','cobrador_id','articulo','estado
     return Prestamo::cartera($cartera)
  
         ->orderBy('orden','ASC')
-        ->paginate();
+        ->get();
+      
     }
 
 }
