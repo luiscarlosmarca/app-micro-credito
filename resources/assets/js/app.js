@@ -476,7 +476,8 @@ const prestamo = new Vue({
 			this.fillprestamo.pago_domingos=prestamo.pago_domingos;
 			this.fillprestamo.cartera_id=prestamo.cartera_id;
 			this.fillprestamo.cliente_id=prestamo.cliente_id;
-			
+
+			$('.fillprestamo.cliente_id option[value="'+prestamo.cliente_id+'"]').prop("selected","true");
 			this.fillprestamo.id=prestamo.id;
 			
 			$('#edit').modal('show');
@@ -704,6 +705,7 @@ const cobro = new Vue({
 				
 				$('#error').empty();
 				toastr.success('Cobro  Guardado Correctamente'); 
+				location.reload();
 			}).catch(error =>{
 				this.errors=error.response.data
 			});

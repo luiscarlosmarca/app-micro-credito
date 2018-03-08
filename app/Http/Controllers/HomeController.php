@@ -26,29 +26,82 @@ class HomeController extends Controller
      */
     public function index()
     {
-         $carteras=Cartera::orderBy('nombre','ASC')->get();
 
-       // $carteras_gastos=Cartera::join('gastos',function($join){
-        //     $join->on('carteras.id','=','gastos.cartera_id')
-        //     ->whereDate('gastos.created_at','=','2018-02-14');
-        // })->get();
+       $y=date("Y");
+       $m=date("m");
+       $d=date("d");
+       $hoy="'".$y."-".$m."-".$d."'";
 
-        // $carteras_prestamos=Cartera::join('prestamos',function($join){
-        //     $join->on('carteras.id','=','prestamos.cartera_id')
-        //     ->whereDate('prestamos.created_at','=','2018-02-14');
-        // })->get();
+        //salida
+        $carteras_gastos=Cartera::join('gastos',function($join) use($hoy){
+            $join->on('carteras.id','=','gastos.cartera_id')
+            ->whereDate('gastos.created_at','=','2018-03-08');
+        })->get(['gastos.valor','carteras.nombre']);
 
-            
-      // $carteras = Cartera::select('gastos.created_at as fecha_gasto','prestamos.created_at as fecha_prestamo',
-      //                   'cobros.created_at as fecha_cobro','prestamos.valor as valor_prestado','prestamos.pago_domingos as pago_domingos','prestamos.valor_seguro as valor_seguro',
-      //                   'gastos.valor as valor_gasto','cobros.valor as valor_cobro','carteras.nombre as nombre_cartera')
-      //                   ->join('gastos','carteras.id','gastos.cartera_id')
-      //                   ->join('prestamos','carteras.id','prestamos.cartera_id')
-      //                   ->join('cobros','prestamos.id','cobros.prestamo_id')
-      //                   ->get();
+        // entrada - salida
+        $carteras_prestamos=Cartera::join('prestamos',function($join)use($hoy){
+            $join->on('carteras.id','=','prestamos.cartera_id')
+            ->whereDate('prestamos.created_at','=','2018-03-08');
+        })->get(['prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos','carteras.nombre']);
 
-           // dd($carteras);
-        //dd($carteras_prestamos);
+        //entrada
+        $carteras_cobros=Cartera::join('prestamos',function($join){
+            $join->on('carteras.id','=','prestamos.cartera_id');
+        })->join('cobros',function($join2)use($hoy){
+            $join2->on('prestamos.id','=','cobros.prestamo_id')
+            ->whereDate('cobros.created_at','=','2018-03-08');
+        })->get(['cobros.valor','carteras.nombre']);
+
+       
+
+        $carteras_prestamos = $carteras_prestamos->groupBy('nombre');
+        
+        $carteras_gastos = $carteras_gastos->groupBy('nombre');
+
+       
+
+        $gastos = $carteras_gastos->map(function($_this){
+          return $_this->sum('valor');  
+        });
+
+        $prestamos = $carteras_prestamos->map(function($_this){
+          return $_this->sum('valor');  
+        });
+
+        $ingresos = $carteras_prestamos->map(function($_this) use($carteras_cobros){
+          return $_this->sum('pago_domingos') + $carteras_cobros->sum('valor');  
+        });
+
+        $seguros = $carteras_prestamos->map(function($_this){
+          return $_this->sum('valor_seguro');  
+        });
+
+ 
+        $entradas = $carteras_prestamos->map(function($_this) use($carteras_cobros){
+          return $_this->sum('valor_seguro') + $_this->sum('pago_domingos' + $carteras_cobros->sum('valor'));  
+        });
+
+        $salidas = $carteras_prestamos->map(function($_this) use($carteras_gastos){
+          return $_this->sum('valor') + $carteras_gastos->sum('valor');  
+        });
+
+        $efectivo_diario=$carteras_prestamos->map(function($_this) use($carteras_cobros,$carteras_gastos){
+
+            return ($_this->sum('valor_seguro') + $_this->sum('pago_domingos') + $carteras_cobros->sum('valor'))-
+            ($_this->sum('valor')+$carteras_gastos->sum('valor'));
+
+
+        });
+      
+
+       $carteras = collect([
+        'gastos'=>$gastos,
+        'prestamos'=>$prestamos,
+        'ingresos'=>$ingresos,
+        'seguros'=>$seguros,
+        'efectivo_diario'=>$efectivo_diario
+        ]);
+       
         return view('home',compact('carteras'));
     }
 
@@ -83,8 +136,8 @@ class HomeController extends Controller
 
         $carteras=Cartera::orderBy('nombre','ASC')->pluck('nombre','id');
         $prestamos=Prestamo::orderBy('created_at','ASC')->get();
-        $cobradores=Persona::where('role','cobrador')->pluck('nombre','id');
-        $clientes=Persona::where('role','cliente')->pluck('nombre','id');
+        $cobradores=Persona::where('role','cobrador')->orderBy('nombre','ASC')->pluck('nombre','id');
+        $clientes=Persona::where('role','cliente')->orderBy('nombre','ASC')->pluck('nombre','id');
 
 
         return view('prestamos',compact('clientes','carteras','cobradores','prestamos'));
