@@ -13,10 +13,11 @@
                         <thead>
                           <tr>
                             <th><input type="date" name="fecha" value="" id="fecha_admin" onchange="buscar(this)" placeholder="Fecha"></th>
-                             <th>Creditos JC</th>
-                            <th></th>
-                           
                              <th>Vanesa</th>
+                            <th></th>
+                                                     
+
+                              <th>Creditos JC</th>
                            
                           
                           
