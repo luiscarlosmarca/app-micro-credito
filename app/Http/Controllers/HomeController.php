@@ -35,13 +35,13 @@ class HomeController extends Controller
         //salida
         $carteras_gastos=Cartera::join('gastos',function($join) use($hoy){
             $join->on('carteras.id','=','gastos.cartera_id')
-            ->whereDate('gastos.created_at','=','2018-03-08');
+            ->whereDate('gastos.created_at','=','2018-03-09');
         })->get(['gastos.valor','carteras.nombre']);
 
         // entrada - salida
         $carteras_prestamos=Cartera::join('prestamos',function($join)use($hoy){
             $join->on('carteras.id','=','prestamos.cartera_id')
-            ->whereDate('prestamos.created_at','=','2018-03-08');
+            ->whereDate('prestamos.created_at','=','2018-03-09');
         })->get(['prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos','carteras.nombre']);
 
         //entrada
@@ -49,7 +49,7 @@ class HomeController extends Controller
             $join->on('carteras.id','=','prestamos.cartera_id');
         })->join('cobros',function($join2)use($hoy){
             $join2->on('prestamos.id','=','cobros.prestamo_id')
-            ->whereDate('cobros.created_at','=','2018-03-08');
+            ->whereDate('cobros.created_at','=','2018-03-09');
         })->get(['cobros.valor','carteras.nombre']);
 
        
