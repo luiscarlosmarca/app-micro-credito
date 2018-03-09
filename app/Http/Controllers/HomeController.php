@@ -94,15 +94,15 @@ class HomeController extends Controller
         });
       
 
-       $carteras = collect([
+      $carteras = collect([
         'gastos'=>$gastos,
         'prestamos'=>$prestamos,
         'ingresos'=>$ingresos,
         'seguros'=>$seguros,
         'efectivo_diario'=>$efectivo_diario
-        ]);
+       ]);
        
-        return view('home',compact('carteras'));
+       return view('home',compact('carteras'));
     }
 
     public function carteras()

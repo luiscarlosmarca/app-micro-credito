@@ -35,6 +35,10 @@
   <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+
+ <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+   
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -99,14 +103,21 @@
         <li class="header">Menu principal</li>
       
         <li class="treeview">
-          <a href="/home">
+           <?php $y=date("Y");
+           $m=date("m");
+           $d=date("d");
+           $hoy=$y."-".$m."-".$d;
+           echo "<a href='/home/$hoy'>";
+
+           ?>
+          
             <i class="fa fa-files-o"></i>
             <span>Administración</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
             </span>
           </a>
-          
+
             <li><a href="/carteras"><i class="fa fa-circle-o"></i> Cartera</a></li>
             <li><a href="/cobradores"><i class="fa fa-circle-o"></i> Cobradores</a></li>
             <li><a href="/clientes"><i class="fa fa-circle-o"></i> Clientes</a></li>
@@ -194,7 +205,8 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/toastr.js"></script> 
 <script src="/js/app.js"></script> 
-
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+@yield('script')
 
 
 </body>

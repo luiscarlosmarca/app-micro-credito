@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row" id="prestamos">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Administración</div>
@@ -12,16 +12,12 @@
                         
                         <thead>
                           <tr>
-                            <th><input type="date" name="fecha" value="" id="fecha_admin" onchange="buscar(this)" placeholder="Fecha"></th>
+                            <th><input type="date" name="fecha" value="" id="fecha_admin" v-on:change.prevent="buscar_admin()" placeholder="Fecha"></th>
                              <th>Vanesa</th>
                             <th></th>
                                                      
-
-                              <th>Creditos JC</th>
-                           
-                          
-                          
-                          
+                            <th>Creditos JC</th>
+                                
                             <th colspan="2">
                               &nbsp;
                             </th>
@@ -34,7 +30,7 @@
                            $m=date("m");
                            $d=date("d");
                            $hoy=$y."-".$m."-".$d;
-                           print_r($hoy);
+                           
                           foreach ($carteras as  $key =>$value) {
                                     echo "<tr><td>$key</td>";                      
                               foreach ($value as  $key_ => $value_) {
