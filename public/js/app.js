@@ -1483,6 +1483,13 @@ var prestamo = new Vue({
 				toastr.success('Prestamo eliminado eliminado correctamente');
 			});
 		},
+		buscar_admin: function buscar_admin() {
+			var fecha = $("#fecha_admin").val();
+
+			var url = '/home/' + fecha;
+
+			$(location).attr('href', url);
+		},
 		createPrestamo: function createPrestamo() {
 			var _this20 = this;
 
