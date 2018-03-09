@@ -1489,6 +1489,8 @@ var prestamo = new Vue({
 			var url = '/home/' + fecha;
 
 			$(location).attr('href', url);
+
+			$("#fecha_admin").val(fecha);
 		},
 		createPrestamo: function createPrestamo() {
 			var _this20 = this;

@@ -24,7 +24,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index($fecha){
 
        $y=date("Y");
        $m=date("m");
@@ -32,23 +32,23 @@ class HomeController extends Controller
        $hoy="'".$y."-".$m."-".$d."'";
 
         //salida
-        $carteras_gastos=Cartera::join('gastos',function($join) use($hoy){
+        $carteras_gastos=Cartera::join('gastos',function($join) use($fecha){
             $join->on('carteras.id','=','gastos.cartera_id')
-            ->whereDate('gastos.created_at','=','2018-03-09');
+            ->whereDate('gastos.created_at','=',$fecha);
         })->get(['gastos.valor','carteras.nombre']);
 
         // entrada - salida
-        $carteras_prestamos=Cartera::join('prestamos',function($join)use($hoy){
+        $carteras_prestamos=Cartera::join('prestamos',function($join)use($fecha){
             $join->on('carteras.id','=','prestamos.cartera_id')
-            ->whereDate('prestamos.created_at','=','2018-03-09');
+            ->whereDate('prestamos.created_at','=',$fecha);
         })->get(['prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos','carteras.nombre']);
 
         //entrada
         $carteras_cobros=Cartera::join('prestamos',function($join){
             $join->on('carteras.id','=','prestamos.cartera_id');
-        })->join('cobros',function($join2)use($hoy){
+        })->join('cobros',function($join2)use($fecha){
             $join2->on('prestamos.id','=','cobros.prestamo_id')
-            ->whereDate('cobros.created_at','=','2018-03-09');
+            ->whereDate('cobros.created_at','=',$fecha);
         })->get(['cobros.valor','carteras.nombre']);
 
        
@@ -101,7 +101,7 @@ class HomeController extends Controller
         'efectivo_diario'=>$efectivo_diario
        ]);
        
-       return view('home',compact('carteras'));
+       return view('home',compact('carteras','fecha'));
     }
 
     public function carteras()

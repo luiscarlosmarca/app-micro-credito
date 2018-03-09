@@ -12,7 +12,7 @@
                         
                         <thead>
                           <tr>
-                            <th><input type="date" name="fecha" value="" id="fecha_admin" v-on:change.prevent="buscar_admin()" placeholder="Fecha"></th>
+                            <th><input type="date" name="fecha" value="{!!$fecha!!}" id="fecha_admin" v-on:change.prevent="buscar_admin()" placeholder="Fecha"></th>
                              <th>Vanesa</th>
                             <th></th>
                                                      
