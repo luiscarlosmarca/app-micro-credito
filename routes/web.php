@@ -17,14 +17,14 @@ Route::get('/', function () {
 
 Route::get('/test', function(){
 
-	$personas = credito\Persona::all();
-	return view('home', compact('personas')); 
+	$prestamos = credito\Persona::all();
+	return view('table', compact('prestamos')); 
 });
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/{fecha}', 'HomeController@index')->name('home');
 
 Route::get('/home/filter', 'CarteraController@index')->name('cartera');
 
@@ -51,6 +51,8 @@ Route::resource('gasto','GastoController',['except'=>'create','edit']);
 Route::resource('prestamo','PrestamoController',['except'=>'create','edit']);
 
 Route::resource('cobro','CobroController',['except'=>'edit']);
+
+
 
 
 
