@@ -525,6 +525,14 @@ const prestamo = new Vue({
 			});
 			
 		},
+		buscar_admin:function(){
+			var fecha = $("#fecha_admin").val();
+			
+			var url ='/home/' + fecha
+			
+			$(location).attr('href',url); 
+			
+		},
 		createPrestamo:function(){
 
 			var url='prestamo'
