@@ -716,10 +716,20 @@ const cobro = new Vue({
 				
 				$('#error').empty();
 				toastr.success('Cobro  Guardado Correctamente'); 
-				location.reload();
+				this.restarCuota(prestamo)
 			}).catch(error =>{
-				this.errors=error.response.data
+				
 			});
+
+		},
+		restarCuota:function(id){
+			
+			var valor_actual = parseInt($("#saldo"+id).val());
+			var cuota_pagada= parseInt($("#"+id).val());
+			valor_actual=(valor_actual<0)?valor_actual*-1:valor_actual
+			var valor_pagar=valor_actual-cuota_pagada;
+			$("#saldo"+id).val(valor_pagar);
+			$("#saldo_th"+id).html(valor_pagar);
 
 		},
 		deleteCobro:function(cobro) {

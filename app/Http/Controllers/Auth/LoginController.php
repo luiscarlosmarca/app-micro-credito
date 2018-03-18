@@ -17,7 +17,7 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
+   
     use AuthenticatesUsers;
 
     /**
@@ -25,7 +25,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+
+    protected $redirectTo = '/home/2018-03-18';
 
     /**
      * Create a new controller instance.

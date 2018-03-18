@@ -44,13 +44,14 @@ class HomeController extends Controller
         })->get(['prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos','carteras.nombre']);
 
         //entrada
+        $fecha='%'.$fecha.'%';
         $carteras_cobros=Cartera::join('prestamos',function($join){
             $join->on('carteras.id','=','prestamos.cartera_id');
         })->join('cobros',function($join2)use($fecha){
-            $join2->on('prestamos.id','=','cobros.prestamo_id')
-            ->whereDate('cobros.created_at','=',$fecha);
-        })->get(['cobros.valor','carteras.nombre']);
-
+            $join2->on('prestamos.id','=','cobros.prestamo_id');
+        })
+        ->where('cobros.created_at','like',$fecha)
+        ->get(['cobros.valor','carteras.nombre']);
        
 
         $carteras_prestamos = $carteras_prestamos->groupBy('nombre');
@@ -100,7 +101,7 @@ class HomeController extends Controller
         'seguros'=>$seguros,
         'efectivo_diario'=>$efectivo_diario
        ]);
-       
+      //dd($carteras_cobros);
        return view('home',compact('carteras','fecha'));
     }
 

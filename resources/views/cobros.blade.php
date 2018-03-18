@@ -46,9 +46,10 @@
                         ?>
                           
                   
-                     <td > <?php $valor=number_format( $prestamo->valor, 0, '.', '.' ); echo "$$valor";?></td>
-                     <td > <?php $valor_a_pagar=number_format( $prestamo->valor_pagar, 0, '.', '.' ); echo "$$valor_a_pagar";?></td>
-                    <td width="20px" class="success">  
+                     <td> <?php $valor=number_format( $prestamo->valor, 0, '.', '.' ); echo "$$valor";?></td>
+                     <td > <?php $valor_a_pagar=number_format( $prestamo->valor_pagar, 0, '.', '.' ); echo "$valor_a_pagar";?></td>
+                    <td id="saldo_th{{$prestamo->id}}" width="20px" class="success">  
+                      <input id="saldo{{$prestamo->id}}" type="hidden" value="<?php echo"$saldo"; ?>" name=""> 
                        <?php if($saldo>0){
                           $saldo=number_format( $saldo, 0, '.', '.' );  
                           echo "$";
