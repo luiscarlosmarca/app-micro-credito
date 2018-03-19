@@ -46,7 +46,13 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="/home" class="logo">
+     <?php $y=date("Y");
+           $m=date("m");
+           $d=date("d");
+           $hoy=$y."-".$m."-".$d;
+           echo "<a href='/home/$hoy' class='logo'>";
+      ?>     
+   
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
