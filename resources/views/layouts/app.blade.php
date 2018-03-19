@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -76,5 +77,28 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
+
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#table_prestamos').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ url('prestamo/show') }}',
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'mi_cartera.nombre', name: 'mi_cartera.nombre'},
+            {data: 'cliente.cobrador.nombre', name: 'cliente.cobrador.nombre'},
+            {data: 'cliente.nombre', name: 'cliente.nombre'},
+          
+            {data: 'valor', name: 'valor'},
+            {data: 'valor_pagar', name: 'valor_pagar'},
+            {data: 'created_at', name: 'created_at'},
+          
+        ]
+    });
+});
+</script>
 </body>
 </html>

@@ -729,9 +729,10 @@ const cobro = new Vue({
 			valor_actual=(valor_actual<0)?valor_actual*-1:valor_actual
 			var valor_pagar=valor_actual-cuota_pagada;
 			$("#saldo"+id).val(valor_pagar);
-			$("#saldo_th"+id).html(valor_pagar);
+			$("#saldo_th"+id).html('$'+valor_pagar);
 
 		},
+		
 		deleteCobro:function(cobro) {
 			
 			var urlDelete ='/cobro/'+cobro.id

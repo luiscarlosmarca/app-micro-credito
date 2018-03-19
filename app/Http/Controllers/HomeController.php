@@ -35,31 +35,32 @@ class HomeController extends Controller
         $carteras_gastos=Cartera::join('gastos',function($join) use($fecha){
             $join->on('carteras.id','=','gastos.cartera_id')
             ->whereDate('gastos.created_at','=',$fecha);
-        })->get(['gastos.valor','carteras.nombre']);
+        })->get(['gastos.valor','carteras.nombre','gastos.id','gastos.cartera_id']);
 
         // entrada - salida
         $carteras_prestamos=Cartera::join('prestamos',function($join)use($fecha){
             $join->on('carteras.id','=','prestamos.cartera_id')
             ->whereDate('prestamos.created_at','=',$fecha);
-        })->get(['prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos','carteras.nombre']);
+        })->get(['prestamos.valor','prestamos.valor_seguro','prestamos.pago_domingos','carteras.nombre','prestamos.id','prestamos.cartera_id']);
 
         //entrada
         $fecha='%'.$fecha.'%';
         $carteras_cobros=Cartera::join('prestamos',function($join){
             $join->on('carteras.id','=','prestamos.cartera_id');
         })->join('cobros',function($join2)use($fecha){
-            $join2->on('prestamos.id','=','cobros.prestamo_id');
+            $join2->on('prestamos.id','=','cobros.prestamo_id'  );
         })
         ->where('cobros.created_at','like',$fecha)
-        ->get(['cobros.valor','carteras.nombre']);
-       
+        ->get(['cobros.valor','carteras.nombre','cobros.prestamo_id']);
+
 
         $carteras_prestamos = $carteras_prestamos->groupBy('nombre');
         
         $carteras_gastos = $carteras_gastos->groupBy('nombre');
 
-       
+        $carteras_cobros = $carteras_cobros->groupBy('nombre');
 
+       
         $gastos = $carteras_gastos->map(function($_this){
           return $_this->sum('valor');  
         });
@@ -67,10 +68,20 @@ class HomeController extends Controller
         $prestamos = $carteras_prestamos->map(function($_this){
           return $_this->sum('valor');  
         });
+        //dd($carteras_cobros);
+//                        dump($carteras_cobros->collapse()->pluck('nombre'));
 
-        $ingresos = $carteras_prestamos->map(function($_this) use($carteras_cobros){
-          return $_this->sum('pago_domingos') + $carteras_cobros->sum('valor');  
-        });
+        $ingresos = $carteras_prestamos->count() ?
+                     $carteras_prestamos->map(function($_this) use($carteras_cobros){
+                        return $_this->sum('pago_domingos') + $carteras_cobros->collapse()->where('nombre',$_this->first()->nombre)->sum('valor');  
+                    }) :
+                    $carteras_cobros->map(function($_this) {
+                      //  dump($_this->sum('valor'));
+                     return $_this->where('nombre',$_this->first()->nombre)->sum('valor');  
+                    });
+                   
+
+   
 
         $seguros = $carteras_prestamos->map(function($_this){
           return $_this->sum('valor_seguro');  
@@ -78,7 +89,7 @@ class HomeController extends Controller
 
  
         $entradas = $carteras_prestamos->map(function($_this) use($carteras_cobros){
-          return $_this->sum('valor_seguro') + $_this->sum('pago_domingos' + $carteras_cobros->sum('valor'));  
+          return $_this->sum('valor_seguro') + $_this->sum('pago_domingos') + $carteras_cobros->sum('valor');  
         });
 
         $salidas = $carteras_prestamos->map(function($_this) use($carteras_gastos){
@@ -86,12 +97,13 @@ class HomeController extends Controller
         });
 
         $efectivo_diario=$carteras_prestamos->map(function($_this) use($carteras_cobros,$carteras_gastos){
-
-            return ($_this->sum('valor_seguro') + $_this->sum('pago_domingos') + $carteras_cobros->sum('valor'))-
+                       return ($_this->sum('valor_seguro') + $_this->sum('pago_domingos') + $carteras_cobros->collapse()->sum('valor'))-
             ($_this->sum('valor')+$carteras_gastos->sum('valor'));
 
 
         });
+
+
       
 
       $carteras = collect([
@@ -101,7 +113,7 @@ class HomeController extends Controller
         'seguros'=>$seguros,
         'efectivo_diario'=>$efectivo_diario
        ]);
-      //dd($carteras_cobros);
+     
        return view('home',compact('carteras','fecha'));
     }
 

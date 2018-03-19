@@ -5,7 +5,7 @@ namespace credito\Http\Controllers;
 use credito\Cobro;
 use credito\Prestamo;
 use Illuminate\Http\Request;
-
+ 
 class CobroController extends Controller
 {
     /**
